@@ -11,27 +11,22 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root";
 import "./app.css";
-import { getSettingsData, getStyleSettings } from "~/api/strapi-api";
+import { getSettingsData } from "~/api/strapi-api";
 import { TopBreadcrumb } from "~/components/ui/top-breadcrumb";
 import { Footer } from "~/components/ui/footer";
 import { Navigation } from "./components/ui/navigation/navigation";
 
 export async function loader() {
   try {
-    const [navigation, styles] = await Promise.all([
-      getSettingsData(),
-      getStyleSettings(),
-    ]);
+    const navigation = await getSettingsData();
 
     return {
       navigation,
-      styles: styles || null,
     };
   } catch (error) {
     console.error(error);
     return {
       navigation: null,
-      styles: null,
     };
   }
 }
@@ -69,7 +64,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="dark h-[100vh]">
         <div className="flex flex-col h-[100vh]">
-          <Navigation data={loaderData.navigation?.top || []} />
+          <Navigation data={loaderData && loaderData.navigation && loaderData.navigation.top ? loaderData.navigation.top : []} />
           {isPortfolioPage && (
             <div className="container mx-auto my-5">
               <TopBreadcrumb />

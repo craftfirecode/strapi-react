@@ -9,6 +9,10 @@ import {ContentImage} from "~/components/ui/content-image";
 import {Table} from "~/components/ui/table";
 
 export const Builder = ({data}: any) => {
+    if (!data || !Array.isArray(data.zone)) {
+        return <div>404 – Seite nicht gefunden</div>;
+    }
+
     const renderComponent = (component: any) => {
         switch (component.__component) {
             case "cms.image":
