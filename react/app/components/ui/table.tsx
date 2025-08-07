@@ -101,15 +101,15 @@ export const Table: React.FC<TableProps> = ({ data }) => {
           <span className="text-xs text-muted-foreground ml-2">Treffer: "{search}"</span>
         )}
       </div>
-      <div className="rounded-lg border bg-card text-card-foreground shadow-sm overflow-x-auto">
-        <ShadcnTable>
+      <div className="rounded-lg shadow-lg bg-white text-card-foreground overflow-x-auto">
+        <ShadcnTable className="min-w-full border-separate border-spacing-0">
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-muted/40">
               {headers.map((header, idx) => (
                 <TableHead
                   key={idx}
                   onClick={() => handleSort(idx)}
-                  className="select-none cursor-pointer group whitespace-nowrap"
+                  className="select-none cursor-pointer group whitespace-nowrap px-4 py-3 text-left text-xs font-semibold text-muted-foreground tracking-wider uppercase bg-muted/40 hover:bg-muted/60 transition-colors"
                 >
                   <div className="flex items-center gap-1">
                     {header}
@@ -134,11 +134,12 @@ export const Table: React.FC<TableProps> = ({ data }) => {
           </TableHeader>
           <TableBody>
             {pagedRows.map((row, rIdx) => (
-              <TableRow key={rIdx} className={
-                `hover:bg-muted/50 ${rIdx % 2 === 0 ? 'bg-background' : 'bg-muted/20'}`
-              }>
+              <TableRow
+                key={rIdx}
+                className={`transition-colors even:bg-white odd:bg-gray-50 hover:bg-blue-50`}
+              >
                 {row.map((cell, cIdx) => (
-                  <TableCell key={cIdx} className="whitespace-nowrap">
+                  <TableCell key={cIdx} className="whitespace-nowrap px-4 py-2 text-sm text-foreground">
                     {search ? (
                       <span
                         dangerouslySetInnerHTML={{

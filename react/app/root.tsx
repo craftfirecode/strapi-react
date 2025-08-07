@@ -66,15 +66,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
-        <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
-        <script
-          id="usercentrics-cmp"
-          src="https://web.cmp.usercentrics.eu/ui/loader.js"
-          data-settings-id="22xenzLbxOLd64"
-          async
-        ></script>
-        {/* Inline styles for initial CSS variables */}
-        {/* <style>{initialStyles}</style> */}
       </head>
       <body className="dark h-[100vh]">
         <div className="flex flex-col h-[100vh]">
