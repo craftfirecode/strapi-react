@@ -7,6 +7,7 @@ import {Space} from "~/components/ui/space";
 import {PostList} from "~/components/ui/post-list";
 import {ContentImage} from "~/components/ui/content-image";
 import {Table} from "~/components/ui/table";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "~/components/ui/accordion";
 
 export const Builder = ({data}: any) => {
     if (!data || !Array.isArray(data.zone)) {
@@ -57,6 +58,21 @@ export const Builder = ({data}: any) => {
                 return (
                     <section className="">
                         <Table data={component}/>
+                    </section>
+                );
+            case "cms.accordion":
+                return (
+                    <section className="">
+                        <Accordion type="single" collapsible>
+                            {component.accordion?.map((item: any) => (
+                                <AccordionItem key={item.id} value={String(item.id)}>
+                                    <AccordionTrigger>{item.title}</AccordionTrigger>
+                                    <AccordionContent>
+                                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                                    </AccordionContent>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
                     </section>
                 );
             default:

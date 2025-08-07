@@ -3,6 +3,7 @@ import type { Schema, Struct } from '@strapi/strapi';
 export interface CmsAccordion extends Struct.ComponentSchema {
   collectionName: 'components_cms_accordions';
   info: {
+    description: '';
     displayName: 'Accordion';
   };
   attributes: {
@@ -111,6 +112,7 @@ export interface CmsTable extends Struct.ComponentSchema {
 export interface ItemsAccordionItems extends Struct.ComponentSchema {
   collectionName: 'components_items_accordion_items';
   info: {
+    description: '';
     displayName: 'Accordion-items';
   };
   attributes: {
@@ -121,7 +123,6 @@ export interface ItemsAccordionItems extends Struct.ComponentSchema {
           preset: 'default';
         }
       >;
-    icon: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }

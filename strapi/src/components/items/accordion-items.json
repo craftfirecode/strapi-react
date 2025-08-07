@@ -1,7 +1,8 @@
 {
   "collectionName": "components_items_accordion_items",
   "info": {
-    "displayName": "Accordion-items"
+    "displayName": "Accordion-items",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -14,9 +15,6 @@
         "preset": "default"
       },
       "customField": "plugin::ckeditor5.CKEditor"
-    },
-    "icon": {
-      "type": "string"
     }
   }
 }
