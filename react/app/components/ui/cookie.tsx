@@ -15,25 +15,6 @@ interface CookieBannerProps {
     onAccept: (preferences: Preferences) => void;
 }
 
-const translations = {
-    en: {
-        message: "We use cookies to improve your experience. Customize your preferences:",
-        necessary: "Necessary (always active)",
-        analytics: "Analytics",
-        marketing: "Marketing",
-        accept: "Accept",
-        decline: "Decline",
-    },
-    de: {
-        message: "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Passen Sie Ihre Einstellungen an:",
-        necessary: "Notwendig (immer aktiv)",
-        analytics: "Analytik",
-        marketing: "Marketing",
-        accept: "Akzeptieren",
-        decline: "Ablehnen",
-    }
-};
-
 const CookieBanner: React.FC<CookieBannerProps> = ({onAccept}) => {
     const [showBanner, setShowBanner] = useState(false);
     const [preferences, setPreferences] = useState<Preferences>({
@@ -41,7 +22,6 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept}) => {
         analytics: false,
         marketing: false,
     });
-    const [language, setLanguage] = useState<'en' | 'de'>('de');
 
     useEffect(() => {
         const consent = localStorage.getItem('cookieConsent');
@@ -78,70 +58,67 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept}) => {
         return null;
     }
 
-    const t = translations[language];
-
     return (
-        <div className="fixed bottom-0 text-black start-0 end-0 bg-white border-top p-3">
-            <div>{t.message}</div>
-            <div className="my-3">
-                <div>
-                    <Collapsible>
-                        <div className="flex gap-3 items-center">
-                            <Switch disabled checked id="necessary-switch"/>
-                            <Label htmlFor="necessary-switch">{t.necessary}</Label>
-                            <CollapsibleTrigger><InfoIcon/></CollapsibleTrigger>
-                        </div>
-                        <CollapsibleContent>
-                            Yes. Free to use for personal and commercial projects. No attribution required.
-                        </CollapsibleContent>
-                    </Collapsible>
-                    <Collapsible>
-                        <div className="flex gap-3 items-center">
-                            <Switch
-                                checked={preferences.analytics}
-                                name="analytics"
-                                onCheckedChange={(checked) => handleSwitchChange(checked, 'analytics')}
-                                id="analytics-switch"
-                            />
-                            <Label htmlFor="analytics-switch">{t.analytics}</Label>
-                            <CollapsibleTrigger><InfoIcon/></CollapsibleTrigger>
-                        </div>
-                        <CollapsibleContent>
-                            Yes. Free to use for personal and commercial projects. No attribution required.
-                        </CollapsibleContent>
-                    </Collapsible>
-                    <Collapsible>
-                        <div className="flex gap-3 items-center">
-                            <Switch
-                                checked={preferences.marketing}
-                                name="marketing"
-                                onCheckedChange={(checked) => handleSwitchChange(checked, 'marketing')}
-                                id="marketing-switch"
-                            />
-                            <Label htmlFor="marketing-switch">{t.marketing}</Label>
-                            <CollapsibleTrigger><InfoIcon/></CollapsibleTrigger>
-                        </div>
-                        <CollapsibleContent>
-                            Yes. Free to use for personal and commercial projects. No attribution required.
-                        </CollapsibleContent>
-                    </Collapsible>
-                </div>
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-md rounded-xl shadow-2xl bg-white border border-gray-200 p-6 flex flex-col gap-4 animate-fade-in">
+            <div className="text-base font-semibold text-gray-900 flex items-center gap-2">
+                Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Passen Sie Ihre Einstellungen an:
             </div>
-            <div className="flex gap-2">
-                <Button onClick={handleAccept}>{t.accept}</Button>
-                <Button onClick={handleDecline}>{t.decline}</Button>
+            <div className="space-y-3">
+                <Collapsible>
+                    <div className="flex gap-3 items-center">
+                        <Switch disabled checked id="necessary-switch"/>
+                        <Label htmlFor="necessary-switch">Notwendig (immer aktiv)</Label>
+                        <CollapsibleTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleTrigger>
+                    </div>
+                    <CollapsibleContent>
+                        <span className="text-xs text-gray-500">Technisch notwendige Cookies für die Grundfunktionalität.</span>
+                    </CollapsibleContent>
+                </Collapsible>
+                <Collapsible>
+                    <div className="flex gap-3 items-center">
+                        <Switch
+                            disabled={true}
+                            checked={preferences.analytics}
+                            name="analytics"
+                            onCheckedChange={(checked) => handleSwitchChange(checked, 'analytics')}
+                            id="analytics-switch"
+                        />
+                        <Label htmlFor="analytics-switch">Analytik</Label>
+                        <CollapsibleTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleTrigger>
+                    </div>
+                    <CollapsibleContent>
+                        <span className="text-xs text-gray-500">Statistische Auswertung zur Verbesserung der Website. (Derzeit nicht in Verwendung)</span>
+                    </CollapsibleContent>
+                </Collapsible>
+                <Collapsible>
+                    <div className="flex gap-3 items-center">
+                        <Switch
+                            disabled={true}
+                            checked={preferences.marketing}
+                            name="marketing"
+                            onCheckedChange={(checked) => handleSwitchChange(checked, 'marketing')}
+                            id="marketing-switch"
+                        />
+                        <Label htmlFor="marketing-switch">Marketing</Label>
+                        <CollapsibleTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleTrigger>
+                    </div>
+                    <CollapsibleContent>
+                        <span className="text-xs text-gray-500">Marketing-Cookies für personalisierte Werbung. (Derzeit nicht in Verwendung)</span>
+                    </CollapsibleContent>
+                </Collapsible>
             </div>
-            <div className="mt-3 flex align-items-center">
-                <div
-                    onClick={() => setLanguage("de")}
-                    className={`cursor-pointer mx-1 ${language === "de" ? 'border-2 border-x-0 border-t-0 border-green-500' : null}`}
-                >DE
-                </div>
-                <div
-                    onClick={() => setLanguage("en")}
-                    className={`cursor-pointer mx-1 ${language === "en" ? "border-2 border-x-0 border-t-0 border-green-500" : null}`}
-                >EN
-                </div>
+            <div className="flex gap-2 justify-end">
+                <Button variant="primary" onClick={handleAccept}>Akzeptieren</Button>
+                <Button variant="ghost" onClick={handleDecline}>Ablehnen</Button>
+            </div>
+            <div className="mt-2 flex justify-between items-center text-xs">
+                <div></div>
+                <a
+                    href="/datenschutz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-gray-500 hover:text-green-700"
+                >Datenschutzerklärung</a>
             </div>
         </div>
     );

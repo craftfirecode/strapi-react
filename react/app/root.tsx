@@ -15,6 +15,7 @@ import { getSettingsData } from "~/api/strapi-api";
 import { TopBreadcrumb } from "~/components/ui/top-breadcrumb";
 import { Footer } from "~/components/ui/footer";
 import { Navigation } from "./components/ui/navigation/navigation";
+import CookieBanner from "./components/ui/cookie";
 
 export async function loader() {
   try {
@@ -76,7 +77,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
           )}
           <div className="flex-1 flex flex-col">{children}</div>
-          {/* <Cookie onAccept={(preferences) => onAccept(preferences)}/> */}
+          <CookieBanner onAccept={onAccept} />
           <Footer />
         </div>
         <ScrollRestoration />
