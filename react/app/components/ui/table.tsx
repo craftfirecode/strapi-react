@@ -95,7 +95,7 @@ export const Table: React.FC<TableProps> = ({data}) => {
                     />
                     <span className="absolute right-3 top-2.5 text-gray-400 pointer-events-none">
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
      className="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11"
                                                                                              r="8"/></svg>
           </span>
@@ -196,10 +196,7 @@ export const Table: React.FC<TableProps> = ({data}) => {
                         aria-label="Vorherige Seite"
                         className="border-0 rounded-full h-6 w-6 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-muted/60 transition-colors p-0"
                     >
-                        <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
-                            <path d="M13 15l-5-5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-                                  strokeLinejoin="round"/>
-                        </svg>
+                        <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M13 15l-5-5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </Button>
                     <span
                         className="text-xs px-2 py-0.5 rounded bg-background text-foreground font-medium min-w-[60px] text-center">

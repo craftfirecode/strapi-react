@@ -69,7 +69,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="dark h-[100vh]">
         <div className="flex flex-col h-[100vh]">
-          <Navigation data={loaderData.navigation.top} />
+          <Navigation data={loaderData.navigation?.top || []} />
           {isPortfolioPage && (
             <div className="container mx-auto my-5">
               <TopBreadcrumb />
