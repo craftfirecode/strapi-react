@@ -41,6 +41,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [cookieBannerOpen, setCookieBannerOpen] = useState(false);
 
   useEffect(() => {
+    const consent = localStorage.getItem("cookieConsent");
+    if (!consent) {
+      setCookieBannerOpen(true);
+    }
+  }, []);
+
+  useEffect(() => {
     const checkCookieConsent = () => {
       const consent = localStorage.getItem("cookieConsent");
       if (!consent) {

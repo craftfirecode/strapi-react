@@ -26,6 +26,7 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
     });
 
     useEffect(() => {
+        // Wenn open true/false gesetzt wird, Banner entsprechend anzeigen
         if (typeof open === 'boolean') {
             setShowBanner(open);
             if (open) {
@@ -42,9 +43,12 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                 }
             }
         } else {
+            // Prüfe immer beim Mounten, ob Consent fehlt, und zeige Banner
             const consent = localStorage.getItem('cookieConsent');
             if (!consent) {
                 setShowBanner(true);
+            } else {
+                setShowBanner(false);
             }
         }
     }, [open]);
@@ -119,6 +123,7 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                 <Collapsible>
                     <div className="flex gap-3 items-center">
                         <Switch
+                            disabled={true}
                             checked={preferences.marketing}
                             name="marketing"
                             onCheckedChange={(checked) => handleSwitchChange(checked, 'marketing')}
