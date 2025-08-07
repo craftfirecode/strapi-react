@@ -6,6 +6,7 @@ import {Link} from "react-router";
 import {Space} from "~/components/ui/space";
 import {PostList} from "~/components/ui/post-list";
 import {ContentImage} from "~/components/ui/content-image";
+import {Table} from "~/components/ui/table";
 
 export const Builder = ({data}: any) => {
     const renderComponent = (component: any) => {
@@ -46,6 +47,12 @@ export const Builder = ({data}: any) => {
                 return (
                     <section className="">
                         <ContentImage data={component}/>
+                    </section>
+                );
+            case "cms.table":
+                return (
+                    <section className="">
+                        <Table data={component}/>
                     </section>
                 );
             default:

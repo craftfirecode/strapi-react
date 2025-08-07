@@ -479,6 +479,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'cms.post-list',
         'cms.content-image',
         'cms.accordion',
+        'cms.table',
       ]
     > &
       Schema.Attribute.Required;

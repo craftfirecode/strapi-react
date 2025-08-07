@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_cms_tables",
+  "info": {
+    "displayName": "Table",
+    "icon": "table",
+    "description": "Einfache Tabelle mit CSV-Eingabe"
+  },
+  "attributes": {
+    "csv": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

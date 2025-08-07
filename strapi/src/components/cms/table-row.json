@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_cms_table_rows",
+  "info": {
+    "displayName": "Table Row",
+    "icon": "row",
+    "description": "Zeile einer Tabelle mit Zellen"
+  },
+  "attributes": {
+    "cells": {
+      "type": "component",
+      "repeatable": true,
+      "component": "cms.table-cell"
+    }
+  }
+}
+

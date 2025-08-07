@@ -26,7 +26,8 @@
         "cms.space",
         "cms.post-list",
         "cms.content-image",
-        "cms.accordion"
+        "cms.accordion",
+        "cms.table"
       ],
       "required": true
     },

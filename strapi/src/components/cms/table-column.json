@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_cms_table_columns",
+  "info": {
+    "displayName": "Table Column",
+    "icon": "columns",
+    "description": "Spaltenüberschrift einer Tabelle"
+  },
+  "attributes": {
+    "header": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
+
