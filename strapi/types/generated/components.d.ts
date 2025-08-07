@@ -108,42 +108,6 @@ export interface CmsTable extends Struct.ComponentSchema {
   };
 }
 
-export interface CmsTableCell extends Struct.ComponentSchema {
-  collectionName: 'components_cms_table_cells';
-  info: {
-    description: 'Zelle einer Tabelle';
-    displayName: 'Table Cell';
-    icon: 'cell';
-  };
-  attributes: {
-    content: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
-export interface CmsTableColumn extends Struct.ComponentSchema {
-  collectionName: 'components_cms_table_columns';
-  info: {
-    description: 'Spalten\u00FCberschrift einer Tabelle';
-    displayName: 'Table Column';
-    icon: 'columns';
-  };
-  attributes: {
-    header: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
-export interface CmsTableRow extends Struct.ComponentSchema {
-  collectionName: 'components_cms_table_rows';
-  info: {
-    description: 'Zeile einer Tabelle mit Zellen';
-    displayName: 'Table Row';
-    icon: 'row';
-  };
-  attributes: {
-    cells: Schema.Attribute.Component<'cms.table-cell', true>;
-  };
-}
-
 export interface ItemsAccordionItems extends Struct.ComponentSchema {
   collectionName: 'components_items_accordion_items';
   info: {
@@ -257,9 +221,6 @@ declare module '@strapi/strapi' {
       'cms.post-list': CmsPostList;
       'cms.space': CmsSpace;
       'cms.table': CmsTable;
-      'cms.table-cell': CmsTableCell;
-      'cms.table-column': CmsTableColumn;
-      'cms.table-row': CmsTableRow;
       'items.accordion-items': ItemsAccordionItems;
       'items.nav-items': ItemsNavItems;
       'items.nav-items-children': ItemsNavItemsChildren;
