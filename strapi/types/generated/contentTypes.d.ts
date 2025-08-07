@@ -534,39 +534,6 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiStyleSettingStyleSetting extends Struct.SingleTypeSchema {
-  collectionName: 'style_settings';
-  info: {
-    description: '';
-    displayName: 'Style Settings';
-    pluralName: 'style-settings';
-    singularName: 'style-setting';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    body_background: Schema.Attribute.String;
-    btn_default_background: Schema.Attribute.String;
-    btn_default_color: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    hover_btn_default_background: Schema.Attribute.String;
-    hover_btn_default_color: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::style-setting.style-setting'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1080,7 +1047,6 @@ declare module '@strapi/strapi' {
       'api::navigation.navigation': ApiNavigationNavigation;
       'api::page.page': ApiPagePage;
       'api::post.post': ApiPostPost;
-      'api::style-setting.style-setting': ApiStyleSettingStyleSetting;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -42,19 +42,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const isPortfolioPage = /^\/portfolio(\/|$)/.test(location.pathname);
   const isBlogPage = /^\/blog(\/|$)/.test(location.pathname);
 
-  // Generate inline CSS for initial styles
-  const initialStyles = loaderData?.styles
-    ? `
-      :root {
-        --html-bg: ${loaderData.styles.body_background};
-        --btn-default-bg: ${loaderData.styles.btn_default_background};
-        --btn-default-color: ${loaderData.styles.btn_default_color};
-        --btn-hover-default-bg: ${loaderData.styles.hover_btn_default_background};
-        --btn-hover-default-color: ${loaderData.styles.hover_btn_default_color};
-      }
-    `
-    : "";
-
   useEffect(() => {
     const checkCookieConsent = () => {
       const consent = localStorage.getItem("cookieConsent");
@@ -87,7 +74,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           async
         ></script>
         {/* Inline styles for initial CSS variables */}
-        <style>{initialStyles}</style>
+        {/* <style>{initialStyles}</style> */}
       </head>
       <body className="dark h-[100vh]">
         <div className="flex flex-col h-[100vh]">

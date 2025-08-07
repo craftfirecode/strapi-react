@@ -79,112 +79,90 @@ export const Table: React.FC<TableProps> = ({ data }) => {
   };
 
   return (
-    <div>
-      {data.title && <h3>{data.title}</h3>}
-      <div style={{ marginBottom: 16 }}>
-        <input
-          type="text"
-          placeholder="Suche..."
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setPage(0);
-          }}
-          style={{
-            height: 40,
-            minWidth: 200,
-            borderRadius: 6,
-            border: "1px solid #ccc",
-            padding: "0 12px",
-            fontSize: 16,
-          }}
-        />
-        {search && (
-          <span
-            style={{
-              marginLeft: 8,
-              fontSize: 12,
-              color: "#888",
+    <div className="w-full max-w-full mx-auto">
+      {data.title && <h3 className="text-xl font-semibold mb-4">{data.title}</h3>}
+      <div className="flex items-center gap-2 mb-4">
+        <div className="relative w-full max-w-xs">
+          <input
+            type="text"
+            placeholder="Suche..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(0);
             }}
-          >
-            Treffer: "{search}"
+            className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 pr-10 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+          <span className="absolute right-3 top-2.5 text-gray-400 pointer-events-none">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 6.5 6.5a7.5 7.5 0 0 0 10.6 10.6z"/></svg>
           </span>
+        </div>
+        {search && (
+          <span className="text-xs text-muted-foreground ml-2">Treffer: "{search}"</span>
         )}
       </div>
-      <ShadcnTable>
-        <TableHeader>
-          <TableRow>
-            {headers.map((header, idx) => (
-              <TableHead key={idx} onClick={() => handleSort(idx)} style={{ cursor: 'pointer' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  {header}
-                  {sortIdx === idx && (
-                    <span style={{ fontSize: 14 }}>
-                      {sortAsc ? (
-                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                          <path d="M10 6l4 5H6l4-5z" fill="currentColor" />
-                        </svg>
-                      ) : (
-                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                          <path d="M10 14l-4-5h8l-4 5z" fill="currentColor" />
-                        </svg>
-                      )}
-                    </span>
-                  )}
-                </div>
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {pagedRows.map((row, rIdx) => (
-            <TableRow key={rIdx}>
-              {row.map((cell, cIdx) => (
-                <TableCell key={cIdx}>
-                  {search ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: cell.replace(
-                          new RegExp(`(${search})`, "gi"),
-                          '<mark style="background: #fde68a">$1</mark>'
-                        ),
-                      }}
-                    />
-                  ) : (
-                    cell
-                  )}
-                </TableCell>
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm overflow-x-auto">
+        <ShadcnTable>
+          <TableHeader>
+            <TableRow>
+              {headers.map((header, idx) => (
+                <TableHead
+                  key={idx}
+                  onClick={() => handleSort(idx)}
+                  className="select-none cursor-pointer group whitespace-nowrap"
+                >
+                  <div className="flex items-center gap-1">
+                    {header}
+                    {sortIdx === idx && (
+                      <span className="ml-1">
+                        {sortAsc ? (
+                          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 6l4 5H6l4-5z" fill="currentColor" /></svg>
+                        ) : (
+                          <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 14l-4-5h8l-4 5z" fill="currentColor" /></svg>
+                        )}
+                      </span>
+                    )}
+                    {sortIdx === idx || (
+                      <span className="opacity-0 group-hover:opacity-60 ml-1">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 6l4 5H6l4-5z" fill="currentColor" /></svg>
+                      </span>
+                    )}
+                  </div>
+                </TableHead>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </ShadcnTable>
-      {sortedRows.length === 0 && (
-        <div
-          style={{
-            textAlign: "center",
-            color: "#888",
-            padding: "24px 0",
-          }}
-        >
-          Keine Daten gefunden.
-        </div>
-      )}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 24,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
+          </TableHeader>
+          <TableBody>
+            {pagedRows.map((row, rIdx) => (
+              <TableRow key={rIdx} className={
+                `hover:bg-muted/50 ${rIdx % 2 === 0 ? 'bg-background' : 'bg-muted/20'}`
+              }>
+                {row.map((cell, cIdx) => (
+                  <TableCell key={cIdx} className="whitespace-nowrap">
+                    {search ? (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: cell.replace(
+                            new RegExp(`(${search})`, "gi"),
+                            '<mark class="bg-yellow-200 text-black">$1</mark>'
+                          ),
+                        }}
+                      />
+                    ) : (
+                      cell
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </ShadcnTable>
+        {sortedRows.length === 0 && (
+          <div className="text-center text-muted-foreground py-8">Keine Daten gefunden.</div>
+        )}
+      </div>
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-6">
+        <div className="flex items-center gap-2">
           <Label htmlFor="table-page-size">Zeilen pro Seite:</Label>
           <select
             id="table-page-size"
@@ -193,6 +171,7 @@ export const Table: React.FC<TableProps> = ({ data }) => {
               setPageSize(Number(e.target.value));
               setPage(0);
             }}
+            className="border rounded px-2 py-1 text-sm bg-background"
           >
             {pageSizes.map((size) => (
               <option key={size} value={size}>
@@ -201,13 +180,7 @@ export const Table: React.FC<TableProps> = ({ data }) => {
             ))}
           </select>
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
+        <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="icon"
@@ -215,22 +188,9 @@ export const Table: React.FC<TableProps> = ({ data }) => {
             disabled={page === 0}
             aria-label="Vorherige Seite"
           >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 20 20"
-              fill="none"
-            >
-              <path
-                d="M13 15l-5-5 5-5"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M13 15l-5-5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </Button>
-          <span style={{ fontSize: 16, padding: "0 8px" }}>
+          <span className="text-base px-2">
             Seite {page + 1} / {pageCount || 1}
           </span>
           <Button
@@ -240,20 +200,7 @@ export const Table: React.FC<TableProps> = ({ data }) => {
             disabled={page >= pageCount - 1}
             aria-label="Nächste Seite"
           >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 20 20"
-              fill="none"
-            >
-              <path
-                d="M7 5l5 5-5 5"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M7 5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </Button>
         </div>
       </div>
