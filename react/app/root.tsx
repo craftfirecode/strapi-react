@@ -16,6 +16,7 @@ import { TopBreadcrumb } from "~/components/ui/top-breadcrumb";
 import { Footer } from "~/components/ui/footer";
 import { Navigation } from "./components/ui/navigation/navigation";
 import CookieBanner from "./components/ui/cookie";
+import { Cookie } from "lucide-react";
 
 export async function loader() {
   try {
@@ -37,6 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const loaderData: any = useLoaderData<Route.ComponentProps>();
   const isPortfolioPage = /^\/portfolio(\/|$)/.test(location.pathname);
   const isBlogPage = /^\/blog(\/|$)/.test(location.pathname);
+  const [cookieBannerOpen, setCookieBannerOpen] = useState(false);
 
   useEffect(() => {
     const checkCookieConsent = () => {
@@ -54,8 +56,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
     // Handle preferences
   };
 
+  const handleOpenCookieBanner = () => setCookieBannerOpen(true);
+  const handleCloseCookieBanner = () => setCookieBannerOpen(false);
+
   return (
-    <html lang="en">
+    <html lang="de">
       <head>
         <meta charSet="utf-8" />
         <meta name="description" content="Website" />
@@ -63,7 +68,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="dark h-[100vh]">
+      <body>
         <div className="flex flex-col h-[100vh]">
           <Navigation data={loaderData && loaderData.navigation && loaderData.navigation.top ? loaderData.navigation.top : []} />
           {isPortfolioPage && (
@@ -77,7 +82,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
           )}
           <div className="flex-1 flex flex-col">{children}</div>
-          <CookieBanner onAccept={onAccept} />
+          <CookieBanner
+            open={cookieBannerOpen}
+            onClose={handleCloseCookieBanner}
+            onAccept={onAccept}
+          />
+          <button
+            type="button"
+            aria-label="Cookie-Einstellungen öffnen"
+            onClick={handleOpenCookieBanner}
+            className="fixed z-50 bottom-4 right-4 bg-white border border-gray-200 shadow-lg rounded-full p-3 hover:bg-green-100 transition-colors"
+          >
+            <Cookie className="w-6 h-6 text-green-600" />
+          </button>
           <Footer />
         </div>
         <ScrollRestoration />

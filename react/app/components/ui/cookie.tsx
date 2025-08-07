@@ -13,9 +13,11 @@ interface Preferences {
 
 interface CookieBannerProps {
     onAccept: (preferences: Preferences) => void;
+    open?: boolean;
+    onClose?: () => void;
 }
 
-const CookieBanner: React.FC<CookieBannerProps> = ({onAccept}) => {
+const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) => {
     const [showBanner, setShowBanner] = useState(false);
     const [preferences, setPreferences] = useState<Preferences>({
         necessary: true,
@@ -24,15 +26,33 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept}) => {
     });
 
     useEffect(() => {
-        const consent = localStorage.getItem('cookieConsent');
-        if (!consent) {
-            setShowBanner(true);
+        if (typeof open === 'boolean') {
+            setShowBanner(open);
+            if (open) {
+                // Preferences aus localStorage laden, wenn Banner geöffnet wird
+                const consent = localStorage.getItem('cookieConsent');
+                if (consent) {
+                    try {
+                        setPreferences(JSON.parse(consent));
+                    } catch (e) {
+                        setPreferences({ necessary: true, analytics: false, marketing: false });
+                    }
+                } else {
+                    setPreferences({ necessary: true, analytics: false, marketing: false });
+                }
+            }
+        } else {
+            const consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                setShowBanner(true);
+            }
         }
-    }, []);
+    }, [open]);
 
     const handleAccept = () => {
         localStorage.setItem('cookieConsent', JSON.stringify(preferences));
         setShowBanner(false);
+        if (onClose) onClose();
         onAccept(preferences);
     };
 
@@ -44,7 +64,13 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept}) => {
         };
         localStorage.setItem('cookieConsent', JSON.stringify(declinedPreferences));
         setShowBanner(false);
+        if (onClose) onClose();
         onAccept(declinedPreferences);
+    };
+
+    const handleClose = () => {
+        setShowBanner(false);
+        if (onClose) onClose();
     };
 
     const handleSwitchChange = (checked: boolean, name: string) => {
@@ -93,7 +119,6 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept}) => {
                 <Collapsible>
                     <div className="flex gap-3 items-center">
                         <Switch
-                            disabled={true}
                             checked={preferences.marketing}
                             name="marketing"
                             onCheckedChange={(checked) => handleSwitchChange(checked, 'marketing')}
@@ -110,6 +135,7 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept}) => {
             <div className="flex gap-2 justify-end">
                 <Button variant="primary" onClick={handleAccept}>Akzeptieren</Button>
                 <Button variant="ghost" onClick={handleDecline}>Ablehnen</Button>
+                <Button variant="ghost" onClick={handleClose}>Schließen</Button>
             </div>
             <div className="mt-2 flex justify-between items-center text-xs">
                 <div></div>
