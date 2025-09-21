@@ -1,6 +1,0 @@
-export const environment = {
-  production: false,
-  strapiApiUrl: 'http://localhost:1337',
-  strapiApiKey: 'a52fb31610dcb0f76d067dfe9c13da5455fd13adf65e406d7cbd0e0e897cd0cbf154f5d98a111d57f42153be95de56bae9f854f0541528b8f0cfaee6e4130146045a8b492c39f1b71a478e316ba7f2f7cb780a474847e0bed3919e7059f7138ca4c0072a7823eee7cefc96eeb6ce98d87dfc6ab459298294825c6156da60abed'
-};
-
