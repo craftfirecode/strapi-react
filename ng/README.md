@@ -1,59 +1,172 @@
-# Ng
+# Angular CraftFire CMS
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+Eine Angular 20 Implementierung des React CraftFire CMS mit Signal-Konzept und modernen Angular-Features.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- ✅ Angular 20 mit Signals
+- ✅ Moderne Template-Syntax mit @if, @switch, @for
+- ✅ Strapi CMS Integration
+- ✅ Responsive Navigation
+- ✅ Builder-Komponente für dynamische Inhalte
+- ✅ TypeScript Support
+- ✅ Server-Side Rendering (SSR)
 
-```bash
-ng serve
+## Projektstruktur
+
+```
+ng/
+├── src/
+│   ├── app/
+│   │   ├── components/ui/
+│   │   │   ├── builder/          # Zentrale Builder-Komponente
+│   │   │   ├── button/           # Button-Komponente
+│   │   │   ├── content/          # Content-Komponente für WYSIWYG
+│   │   │   └── navigation/       # Navigation-Komponente
+│   │   ├── lib/
+│   │   │   ├── helper.ts         # Helper-Funktionen
+│   │   │   └── utils.ts          # CSS-Utilities
+│   │   ├── page/                 # Haupt-Page-Komponente
+│   │   ├── services/
+│   │   │   └── strapi-api.service.ts  # Strapi API Service
+│   │   ├── app.config.ts         # App-Konfiguration
+│   │   └── app.routes.ts         # Routing-Konfiguration
+│   ├── environments/             # Environment-Konfigurationen
+│   └── styles.scss              # Globale Styles
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Installation und Setup
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. Dependencies installieren
 
 ```bash
-ng generate component component-name
+cd ng
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 2. Environment-Konfiguration
+
+Bearbeite `src/environments/environment.ts`:
+
+```typescript
+export const environment = {
+  production: false,
+  strapiApiUrl: 'http://localhost:1337',  // Deine Strapi-URL
+  strapiApiKey: 'your-strapi-api-key-here'  // Dein Strapi API-Key
+};
+```
+
+### 3. Strapi-Verbindung
+
+Die App verbindet sich automatisch mit deiner Strapi-Instanz. Stelle sicher, dass:
+
+- Strapi läuft und erreichbar ist
+- Der API-Key korrekt konfiguriert ist
+- Die benötigten Content-Types existieren:
+  - `pages`
+  - `posts` 
+  - `blogs`
+  - `navigation`
+
+### 4. Development Server starten
 
 ```bash
-ng generate --help
+npm run start
 ```
 
-## Building
+Die App ist dann unter `http://localhost:4200` erreichbar.
 
-To build the project run:
+## Unterstützte CMS-Komponenten
+
+### Aktuell implementiert:
+- ✅ `cms.content` - WYSIWYG Content
+- ✅ `cms.button` - Call-to-Action Buttons
+
+### Geplant für Erweiterung:
+- `cms.image` - Bilder
+- `cms.space` - Abstandshalter
+- `cms.post-list` - Blog-Post Listen
+- `cms.content-image` - Content mit Bild
+- `cms.table` - Tabellen
+- `cms.accordion` - Akkordeon-Elemente
+
+## Angular 20 Features
+
+### Signals
+```typescript
+// State Management mit Signals
+data = signal<any>(null);
+loading = signal(true);
+
+// Computed Values
+hasValidData = computed(() => {
+  const currentData = this.data();
+  return currentData && Array.isArray(currentData.zone);
+});
+```
+
+### Moderne Template-Syntax
+```html
+@if (hasValidData()) {
+  @for (component of data().zone; track component.id) {
+    @switch (component.__component) {
+      @case ('cms.content') {
+        <app-content [data]="component"></app-content>
+      }
+      @case ('cms.button') {
+        <app-button>{{ component.value }}</app-button>
+      }
+    }
+  }
+} @else {
+  <div>404 – Seite nicht gefunden</div>
+}
+```
+
+## API-Integration
+
+Der `StrapiApiService` bietet folgende Methoden:
+
+- `getPageData(url)` - Lädt Seitendaten
+- `getPostData(url)` - Lädt Post-Daten  
+- `getBlogData(url)` - Lädt Blog-Daten
+- `getSettingsData()` - Lädt Navigation
+- `getPageByHref(url)` - Sucht Seite nach URL
+
+## Deployment
+
+### Build für Produktion
 
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### SSR Build
 
 ```bash
-ng test
+npm run build
+npm run serve:ssr:ng
 ```
 
-## Running end-to-end tests
+## Navigation
 
-For end-to-end (e2e) testing, run:
+Die Navigation unterstützt:
+- Desktop-Navigation mit Dropdown-Menüs
+- Mobile-Navigation mit Touch-Unterstützung
+- Aktive Link-Hervorhebung
+- Icon-Support (erweiterbar)
 
-```bash
-ng e2e
-```
+## Styling
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Tailwind CSS für Utility-First Styling
+- CSS Custom Properties für Theming
+- Responsive Design
+- Accessibility-Features
 
-## Additional Resources
+## Nächste Schritte
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Erweitere die Builder-Komponente um weitere CMS-Komponenten
+2. Implementiere Icon-Library (z.B. Lucide Angular)
+3. Füge Animationen hinzu
+4. Optimiere Performance
+5. Erweitere SEO-Features

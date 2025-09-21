@@ -1,0 +1,19 @@
+/* Button component styles */
+:host {
+  display: inline-block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--ring-color, #00c16a);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

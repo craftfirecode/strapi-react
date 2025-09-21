@@ -1,0 +1,52 @@
+/* Navigation component styles */
+:host {
+  display: block;
+}
+
+.brand {
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.icon {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+}
+
+/* Dropdown hover effects */
+.group:hover .group-hover\\:opacity-100 {
+  opacity: 1;
+}
+
+.group:hover .group-hover\\:visible {
+  visibility: visible;
+}
+
+/* Mobile menu animations */
+.mobile-menu-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+/* Active link styles */
+a.router-link-active {
+  color: #00c16a !important;
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #00c16a;
+  outline-offset: 2px;
+}

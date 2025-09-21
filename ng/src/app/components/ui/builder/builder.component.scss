@@ -1,0 +1,16 @@
+/* Builder component styles */
+:host {
+  display: block;
+}
+
+section {
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  padding: 2rem;
+  text-align: center;
+  color: #dc2626;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
