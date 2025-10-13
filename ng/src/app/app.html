@@ -3,10 +3,12 @@
   <header>
     <h1>Strapi CMS mit Angular GraphQL</h1>
     <button (click)="log()">Console Log der Zone-Daten</button>
+    @for (page of folderService.folderList(); track page.id) {
+      <p [innerHTML]="page.zone[0].wysiwyg"></p>
+    }
   </header>
 
   <main>
-    <app-page-display></app-page-display>
     <router-outlet></router-outlet>
   </main>
 </div>
