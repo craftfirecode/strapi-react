@@ -11,19 +11,7 @@ import { BuilderComponent } from './builder.component';
   imports: [BuilderComponent],
   template: `
     <div class="page-container">
-      @if (isLoading()) {
-        <div class="loading d-none">
-          <div class="spinner"></div>
-          <p>Lade Seite...</p>
-        </div>
-      } @else if (documentId()) {
         <app-builder [documentId]="documentId()" />
-      } @else {
-        <div class="not-found">
-          <h1>Seite nicht gefunden</h1>
-          <p>Die URL konnte nicht in der Navigation gefunden werden.</p>
-        </div>
-      }
     </div>
   `,
   styles: [`
