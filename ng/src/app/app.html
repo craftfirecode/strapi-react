@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card container mx-auto my-5 px-5">
   <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-4 bg-surface-0 dark:bg-surface-900">
     <ng-template #start>
       <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,17 +85,10 @@
     </ng-template>
   </p-megamenu>
 </div>
-<p>app.html</p>
-<div class="app-container">
+<main class="container mx-auto my-5 px-5">
   <header>
-    <h1>Strapi CMS mit Angular GraphQL</h1>
-    <button (click)="log()">Console Log der Zone-Daten</button>
+    <button (click)="log()"></button>
   </header>
-  <h1 class="text-3xl font-bold underline bg-red-300">
-    Hello world!
-  </h1>
-  <main>
     <p-button label="Check" />
     <router-outlet></router-outlet>
-  </main>
-</div>
+</main>
