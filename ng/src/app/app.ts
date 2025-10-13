@@ -2,10 +2,11 @@ import {Component, inject, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {FolderService} from './signal/folder.service';
 import {NavService} from './signal/nav.service';
+import {ButtonModule} from 'primeng/button';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ButtonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
