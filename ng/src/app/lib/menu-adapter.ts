@@ -15,6 +15,7 @@ interface NavItem {
       __typename?: string;
       url: string;
       label: string;
+      subtext: string;
       page?: {
         __typename?: string;
         documentId: string;
@@ -50,7 +51,7 @@ export class MenuAdapter {
               // Kombiniere Parent-URL + Sub-URL
               routerLink: subItem.url ? `/${parentUrl}/${subItem.url}` : undefined,
               icon: 'pi pi-arrow-right',
-              subtext: subItem.page?.documentId ? `Doc: ${subItem.page.documentId}` : undefined
+              subtext: subItem?.subtext ? `${subItem.subtext}` : undefined
             }));
 
             return [{

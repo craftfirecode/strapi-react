@@ -160,6 +160,7 @@ export interface ItemsNavItemsChildren extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<false>;
     label: Schema.Attribute.String;
     page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    subtext: Schema.Attribute.String;
     url: Schema.Attribute.String;
   };
 }

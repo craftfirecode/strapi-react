@@ -24,6 +24,7 @@ const GET_NAV = gql`
         sub {
           url
           label
+          subtext
           page {
             documentId
           }
