@@ -3,10 +3,12 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NavService } from '../signal/nav.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
+import { BuilderComponent } from './builder.component';
 
 @Component({
   selector: 'app-page',
   standalone: true,
+  imports: [BuilderComponent],
   template: `
     <div class="page-container">
       @if (isLoading()) {
@@ -15,22 +17,38 @@ import { map } from 'rxjs/operators';
           <p>Lade Seite...</p>
         </div>
       } @else if (documentId()) {
-        <h1>Document ID: {{ documentId() }}</h1>
-        <p>URL: {{ currentUrl() }}</p>
+        <app-builder [documentId]="documentId()" />
       } @else {
-        <h1>Page nicht gefunden</h1>
-        <p>Die URL konnte nicht in der Navigation gefunden werden.</p>
+        <div class="not-found">
+          <h1>Seite nicht gefunden</h1>
+          <p>Die URL konnte nicht in der Navigation gefunden werden.</p>
+        </div>
       }
     </div>
   `,
   styles: [`
     .page-container {
       padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    h1 {
+
+    .not-found {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .not-found h1 {
       font-size: 2rem;
       margin-bottom: 1rem;
+      color: #333;
     }
+
+    .not-found p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
     .loading {
       display: flex;
       flex-direction: column;
