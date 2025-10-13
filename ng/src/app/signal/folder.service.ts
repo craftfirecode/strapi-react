@@ -46,13 +46,9 @@ export class FolderService {
         })
       );
 
-
       this.folderList.set(result.data.pages);
-      // console.log('this.folderList()', this.folderList())
-
     } catch (e) {
       console.error('GraphQL Error:', e);
-      this.folderList.set([]);
     }
   }
 }

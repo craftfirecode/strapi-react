@@ -7,7 +7,6 @@ import { HttpLink } from 'apollo-angular/http';
 import { inject } from '@angular/core';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideClientHydration(withEventReplay()),
     provideApollo(() => {
       const httpLink = inject(HttpLink);
       return {
