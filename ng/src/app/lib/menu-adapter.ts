@@ -38,13 +38,17 @@ export class MenuAdapter {
 
       // Prüfen ob Children/Sub-Items vorhanden sind
       if (navItem.children && navItem.children.length > 0) {
+        // Parent URL für Submenu-Items
+        const parentUrl = navItem.url || '';
+
         // Jede Kategorie wird zu einer Spalte
         const columns: any[][] = navItem.children
           .filter(child => child.sub && child.sub.length > 0)
           .map(child => {
             const columnItems = child.sub!.map(subItem => ({
               label: subItem.label,
-              routerLink: subItem.url ? `/${subItem.url}` : undefined,
+              // Kombiniere Parent-URL + Sub-URL
+              routerLink: subItem.url ? `/${parentUrl}/${subItem.url}` : undefined,
               icon: 'pi pi-arrow-right',
               subtext: subItem.page?.documentId ? `Doc: ${subItem.page.documentId}` : undefined
             }));

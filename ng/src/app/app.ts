@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
 import { MenuAdapter } from './lib/menu-adapter';
+import {PageService} from './signal/page.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class App implements OnInit {
   protected readonly title = signal('ng');
   folderService = inject(FolderService);
   navService = inject(NavService);
+  pageService = inject(PageService);
 
   // Computed Signal für reaktive Menu-Items basierend auf navService
   items = computed(() => {
@@ -38,6 +40,6 @@ export class App implements OnInit {
   log() {
     console.log('folderList', this.folderService.folderList());
     console.log('navService', this.navService.navList());
-    console.log('Converted Menu Items:', this.items());
+    console.log('Converted Page:', this.pageService.currentPage());
   }
 }
