@@ -15,12 +15,14 @@ const GET_NAV = gql`
     navigation {
     top {
       url
+      label
       page {
         documentId
       }
       children {
         sub {
           url
+          label
           page {
             documentId
           }
