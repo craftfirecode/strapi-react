@@ -1,6 +1,7 @@
 import {Component, inject, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {FolderService} from './signal/folder.service';
+import {NavService} from './signal/nav.service';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,10 @@ import {FolderService} from './signal/folder.service';
 export class App {
   protected readonly title = signal('ng');
   folderService = inject(FolderService);
+  navService = inject(NavService);
 
   log() {
-    console.log('log', this.folderService.folderList());
+    console.log('folderList', this.folderService.folderList());
+    console.log('navService', this.navService.navList());
   }
 }
