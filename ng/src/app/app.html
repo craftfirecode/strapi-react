@@ -3,7 +3,7 @@
   <header>
     <h1>Strapi CMS mit Angular GraphQL</h1>
     <button (click)="log()">Console Log der Zone-Daten</button>
-    @for (page of folderService.folderList(); track page.id) {
+    @for (page of folderService.folderList(); track page) {
       <p [innerHTML]="page.zone[0].wysiwyg"></p>
     }
   </header>
