@@ -34,7 +34,6 @@ export class MenuAdapter {
       const megaMenuItem: MegaMenuItem = {
         label: navItem.label,
         root: true,
-        routerLink: navItem.url ? `/${navItem.url}` : undefined,
       };
 
       // Prüfen ob Children/Sub-Items vorhanden sind
@@ -59,6 +58,9 @@ export class MenuAdapter {
         if (columns.length > 0) {
           megaMenuItem.items = columns;
         }
+      } else {
+        // Nur wenn keine Children vorhanden sind, routerLink setzen
+        megaMenuItem.routerLink = navItem.url ? `/${navItem.url}` : undefined;
       }
 
       return megaMenuItem;

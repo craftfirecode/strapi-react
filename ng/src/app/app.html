@@ -61,17 +61,21 @@
       </svg>
     </ng-template>
     <ng-template #item let-item>
-      <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
+      <a *ngIf="item.root && !item.items" [routerLink]="item.routerLink" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
         <i [ngClass]="item.icon"></i>
         <span class="ml-2">{{ item.label }}</span>
       </a>
+      <span *ngIf="item.root && item.items" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
+        <i [ngClass]="item.icon"></i>
+        <span class="ml-2">{{ item.label }}</span>
+      </span>
       <div *ngIf="!item.root && !item.image">
         <!-- Kategorie-Überschrift wenn vorhanden -->
         <h3 *ngIf="item.label && item.items" class="px-4 pt-4 pb-2 font-bold text-base text-surface-900 dark:text-surface-0 uppercase">
           {{ item.label }}
         </h3>
         <!-- Menu-Item Link -->
-        <a *ngIf="!item.items" class="flex items-center p-4 cursor-pointer mb-2 gap-2">
+        <a *ngIf="!item.items" [routerLink]="item.routerLink" class="flex items-center p-4 cursor-pointer mb-2 gap-2">
           <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12">
             <i [ngClass]="item.icon + ' text-lg'"></i>
           </span>

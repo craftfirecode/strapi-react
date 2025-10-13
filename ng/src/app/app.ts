@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, signal, computed} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import {FolderService} from './signal/folder.service';
 import {NavService} from './signal/nav.service';
 import { MegaMenuModule } from 'primeng/megamenu';
@@ -13,7 +13,7 @@ import { MenuAdapter } from './lib/menu-adapter';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, MegaMenuModule, NgClass, NgIf, Ripple, MegaMenu, CommonModule, AvatarModule],
+  imports: [RouterOutlet, RouterLink, ButtonModule, MegaMenuModule, NgClass, NgIf, Ripple, MegaMenu, CommonModule, AvatarModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
