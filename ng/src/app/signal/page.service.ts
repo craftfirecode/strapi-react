@@ -13,6 +13,16 @@ const GET_PAGE = gql`
         ... on ComponentCmsContent {
           wysiwyg
         }
+        ... on ComponentCmsImage {
+          image {
+            __typename
+            url
+            alternativeText
+            name
+            width
+            height
+          }
+        }
       }
       settings {
         title
@@ -27,6 +37,14 @@ interface PageData {
   zone: Array<{
     __typename: string;
     wysiwyg?: string;
+    image?: {
+      __typename?: string;
+      url: string;
+      alternativeText?: string | null;
+      name?: string;
+      width?: number;
+      height?: number;
+    };
   }>;
   settings: {
     title?: string;
@@ -81,4 +99,3 @@ export class PageService {
     this.error.set(null);
   }
 }
-

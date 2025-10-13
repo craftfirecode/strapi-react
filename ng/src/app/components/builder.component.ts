@@ -25,6 +25,15 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
             @if (zone.__typename === 'ComponentCmsContent' && zone.wysiwyg) {
               <div [innerHTML]="sanitizeHtml(zone.wysiwyg)"></div>
             }
+            @if (zone.__typename === 'ComponentCmsImage' && zone.image) {
+              <div class="image-container my-4">
+                <img
+                  [src]="getImageUrl(zone.image)"
+                  [alt]="zone.image?.alternativeText || zone.image?.name || 'Image'"
+                  class="w-full h-auto"
+                />
+              </div>
+            }
           }
         </div>
       }
@@ -38,14 +47,44 @@ export class BuilderComponent implements OnChanges {
   private sanitizer = inject(DomSanitizer);
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['documentId'] && this.documentId) {
-      this.pageService.loadPage(this.documentId);
-    } else if (changes['documentId'] && !this.documentId) {
-      this.pageService.clearPage();
+    if (changes['documentId']) {
+      const currentId = changes['documentId'].currentValue;
+      const previousId = changes['documentId'].previousValue;
+
+      // Nur laden wenn sich die ID wirklich geändert hat
+      if (currentId && currentId !== previousId) {
+        console.log('Loading page with documentId:', currentId);
+        this.pageService.loadPage(currentId);
+      } else if (!currentId && previousId) {
+        // Nur clearen wenn vorher eine ID da war
+        console.log('Clearing page');
+        this.pageService.clearPage();
+      }
     }
+  }
+
+  ngAfterViewInit() {
+    // Debug: Zeige die geladenen Zonen
+    console.log('Current Page Zones:', this.pageService.currentPage()?.zone);
   }
 
   sanitizeHtml(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  getImageUrl(image: any): string {
+    console.log('Getting image URL for:', image);
+    if (!image) return '';
+
+    // Wenn es eine vollständige URL ist (beginnt mit http/https)
+    if (image.url?.startsWith('http')) {
+      return image.url;
+    }
+
+    // Ansonsten relativ zur Strapi-API
+    const strapiUrl = 'http://localhost:1337'; // TODO: Aus Environment/Config laden
+    const fullUrl = `${strapiUrl}${image.url}`;
+    console.log('Generated image URL:', fullUrl);
+    return fullUrl;
   }
 }
