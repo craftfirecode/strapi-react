@@ -6,18 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 // GraphQL Query Interface für bessere Typisierung
 interface GraphQLResponse {
   pages: {
-    data: Array<{
-      id: string;
-      attributes: {
-        indicator: string;
-        zone: any[];
-        settings: {
-          title: string;
-          description: string;
-          slug: string;
-        };
-      };
-    }>;
+    data: Array<any>;
   };
 }
 
@@ -34,6 +23,7 @@ const GET_PAGES_WITH_ZONES = gql`
 `;
 
 @Injectable({ providedIn: 'root' })
+
 export class FolderService {
   folderList = signal<any[]>([]);
 
@@ -45,7 +35,7 @@ export class FolderService {
 
   async loadFolders() {
     try {
-      const result = await firstValueFrom(
+      const result: any = await firstValueFrom(
         this.apollo.query<GraphQLResponse>({
           query: GET_PAGES_WITH_ZONES,
           context: {
@@ -56,18 +46,10 @@ export class FolderService {
         })
       );
 
-      console.log('GraphQL Result:', result);
-      console.log('Pages with Zones:', result.data?.pages?.data);
 
-      // Verarbeite die Zone-Daten für bessere Nutzung
-      const processedPages = result.data?.pages?.data?.map((page) => ({
-        id: page.id,
-        indicator: page.attributes.indicator,
-        zones: page.attributes.zone || [],
-        settings: page.attributes.settings
-      })) || [];
+      this.folderList.set(result.data.pages);
+      console.log('this.folderList()', this.folderList())
 
-      this.folderList.set(processedPages);
     } catch (e) {
       console.error('GraphQL Error:', e);
       this.folderList.set([]);

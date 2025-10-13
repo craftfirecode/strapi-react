@@ -11,9 +11,9 @@ import { PageDisplayComponent } from './components/page-display.component';
 })
 export class App {
   protected readonly title = signal('ng');
-  folderService = inject(FolderService)
+  folderService = inject(FolderService);
 
   log() {
-    console.log(this.folderService.folderList());
+    console.log('log', this.folderService.folderList());
   }
 }
