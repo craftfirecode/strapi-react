@@ -7,21 +7,9 @@ import { BuilderComponent } from './builder.component';
   standalone: true,
   imports: [BuilderComponent],
   template: `
-    <div class="index-container">
-      @if (indexPageService.isLoading()) {
-        <div class="loading">
-<!--          <div class="spinner"></div>-->
-<!--          <p>Lade Startseite...</p>-->
-        </div>
-      } @else if (indexPageService.error()) {
-        <div class="error">
-          <h2>Fehler beim Laden</h2>
-          <p>{{ indexPageService.error() }}</p>
-        </div>
-      } @else if (indexPageService.documentId()) {
+
         <app-builder [documentId]="indexPageService.documentId()" />
-      }
-    </div>
+
   `,
   styles: [`
     .index-container {
