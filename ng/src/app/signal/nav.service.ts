@@ -37,6 +37,7 @@ const GET_NAV = gql`
 
 export class NavService {
   navList = signal<any[]>([]);
+  isLoading = signal<boolean>(true);
 
   constructor(
     private apollo: Apollo,
@@ -45,6 +46,7 @@ export class NavService {
   }
 
   async loadNav() {
+    this.isLoading.set(true);
     try {
       const result: any = await firstValueFrom(
         this.apollo.query<GraphQLResponse>({
@@ -59,6 +61,8 @@ export class NavService {
       this.navList.set(result.data.navigation.top);
     } catch (e) {
       console.error('GraphQL Error:', e);
+    } finally {
+      this.isLoading.set(false);
     }
   }
 }

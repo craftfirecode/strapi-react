@@ -9,7 +9,12 @@ import { map } from 'rxjs/operators';
   standalone: true,
   template: `
     <div class="page-container">
-      @if (documentId()) {
+      @if (isLoading()) {
+        <div class="loading d-none">
+          <div class="spinner"></div>
+          <p>Lade Seite...</p>
+        </div>
+      } @else if (documentId()) {
         <h1>Document ID: {{ documentId() }}</h1>
         <p>URL: {{ currentUrl() }}</p>
       } @else {
@@ -26,11 +31,41 @@ import { map } from 'rxjs/operators';
       font-size: 2rem;
       margin-bottom: 1rem;
     }
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      gap: 1rem;
+    }
+    .d-none {
+      display: none;
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loading p {
+      color: #666;
+      font-size: 1rem;
+    }
   `]
 })
 export class PageComponent {
   private route = inject(ActivatedRoute);
   private navService = inject(NavService);
+
+  // Loading-Status aus dem NavService
+  isLoading = this.navService.isLoading;
 
   // URL-Segmente als Signal
   private params = toSignal(
@@ -46,8 +81,10 @@ export class PageComponent {
   documentId = computed(() => {
     const params = this.params();
     const navList = this.navService.navList();
+    const loading = this.navService.isLoading();
 
-    if (!params || !navList.length) {
+    // Während des Ladens null zurückgeben
+    if (loading || !params || !navList.length) {
       return null;
     }
 
