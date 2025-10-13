@@ -29,7 +29,20 @@ export const appConfig: ApplicationConfig = {
         link: httpLink.create({
           uri: 'http://localhost:1337/graphql',
         }),
-        cache: new InMemoryCache(),
+        cache: new InMemoryCache({
+          typePolicies: {
+            Query: {
+              fields: {
+                navigation: {
+                  merge(existing = {}, incoming) {
+                    // Merge die verschiedenen Navigation-Felder zusammen
+                    return { ...existing, ...incoming };
+                  }
+                }
+              }
+            }
+          }
+        }),
       };
     }),
   ]
