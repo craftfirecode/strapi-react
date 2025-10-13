@@ -1,12 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageService } from '../signal/page.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { WysiwygComponent } from './ui/wysiwyg.component';
+import { ImageComponent } from './ui/image.component';
 
 @Component({
   selector: 'app-builder',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, WysiwygComponent, ImageComponent],
   template: `
     <div class="">
       @if (pageService.isLoading()) {
@@ -23,16 +24,10 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
         <div>
           @for (zone of pageService.currentPage()?.zone; track $index) {
             @if (zone.__typename === 'ComponentCmsContent' && zone.wysiwyg) {
-              <div [innerHTML]="sanitizeHtml(zone.wysiwyg)"></div>
+              <app-wysiwyg [content]="zone.wysiwyg"></app-wysiwyg>
             }
             @if (zone.__typename === 'ComponentCmsImage' && zone.image) {
-              <div class="image-container my-4">
-                <img
-                  [src]="getImageUrl(zone.image)"
-                  [alt]="zone.image?.alternativeText || zone.image?.name || 'Image'"
-                  class="w-full h-auto"
-                />
-              </div>
+              <app-image [image]="zone.image"></app-image>
             }
           }
         </div>
@@ -44,7 +39,6 @@ export class BuilderComponent implements OnChanges {
   @Input() documentId: string | null = null;
 
   pageService = inject(PageService);
-  private sanitizer = inject(DomSanitizer);
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['documentId']) {
@@ -66,25 +60,5 @@ export class BuilderComponent implements OnChanges {
   ngAfterViewInit() {
     // Debug: Zeige die geladenen Zonen
     console.log('Current Page Zones:', this.pageService.currentPage()?.zone);
-  }
-
-  sanitizeHtml(html: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
-  }
-
-  getImageUrl(image: any): string {
-    console.log('Getting image URL for:', image);
-    if (!image) return '';
-
-    // Wenn es eine vollständige URL ist (beginnt mit http/https)
-    if (image.url?.startsWith('http')) {
-      return image.url;
-    }
-
-    // Ansonsten relativ zur Strapi-API
-    const strapiUrl = 'http://localhost:1337'; // TODO: Aus Environment/Config laden
-    const fullUrl = `${strapiUrl}${image.url}`;
-    console.log('Generated image URL:', fullUrl);
-    return fullUrl;
   }
 }
