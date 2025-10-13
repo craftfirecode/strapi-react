@@ -2,13 +2,18 @@ import {Component, inject, OnInit, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {FolderService} from './signal/folder.service';
 import {NavService} from './signal/nav.service';
-import {ButtonModule} from 'primeng/button';
 import { MegaMenuModule } from 'primeng/megamenu';
-import {MegaMenuItem} from 'primeng/api';
+import {NgClass, NgIf} from '@angular/common';
+import {Ripple} from 'primeng/ripple';
+import { MegaMenuItem } from 'primeng/api';
+import { MegaMenu } from 'primeng/megamenu';
+import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, MegaMenuModule],
+  imports: [RouterOutlet, ButtonModule, MegaMenuModule, NgClass, NgIf, Ripple, MegaMenu, CommonModule, AvatarModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -21,130 +26,51 @@ export class App implements OnInit {
   ngOnInit() {
     this.items = [
       {
-        label: 'Furniture',
-        icon: 'pi pi-box',
+        label: 'Company',
+        root: true,
         items: [
           [
             {
-              label: 'Living Room',
               items: [
-                { label: 'Accessories' },
-                { label: 'Armchair' },
-                { label: 'Coffee Table' },
-                { label: 'Couch' },
-                { label: 'TV Stand' },
-              ],
-            },
+                { label: 'Features', icon: 'pi pi-list', subtext: 'Subtext of item' },
+                { label: 'Customers', icon: 'pi pi-users', subtext: 'Subtext of item' },
+                { label: 'Case Studies', icon: 'pi pi-file', subtext: 'Subtext of item' }
+              ]
+            }
           ],
           [
             {
-              label: 'Kitchen',
-              items: [{ label: 'Bar stool' }, { label: 'Chair' }, { label: 'Table' }],
-            },
-            {
-              label: 'Bathroom',
-              items: [{ label: 'Accessories' }],
-            },
+              items: [
+                { label: 'Solutions', icon: 'pi pi-shield', subtext: 'Subtext of item' },
+                { label: 'Faq', icon: 'pi pi-question', subtext: 'Subtext of item' },
+                { label: 'Library', icon: 'pi pi-search', subtext: 'Subtext of item' }
+              ]
+            }
           ],
           [
             {
-              label: 'Bedroom',
               items: [
-                { label: 'Bed' },
-                { label: 'Chaise lounge' },
-                { label: 'Cupboard' },
-                { label: 'Dresser' },
-                { label: 'Wardrobe' },
-              ],
-            },
+                { label: 'Community', icon: 'pi pi-comments', subtext: 'Subtext of item' },
+                { label: 'Rewards', icon: 'pi pi-star', subtext: 'Subtext of item' },
+                { label: 'Investors', icon: 'pi pi-globe', subtext: 'Subtext of item' }
+              ]
+            }
           ],
           [
             {
-              label: 'Office',
-              items: [
-                { label: 'Bookcase' },
-                { label: 'Cabinet' },
-                { label: 'Chair' },
-                { label: 'Desk' },
-                { label: 'Executive Chair' },
-              ],
-            },
-          ],
-        ],
+              items: [{ image: 'https://primefaces.org/cdn/primeng/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.' }]
+            }
+          ]
+        ]
       },
       {
-        label: 'Electronics',
-        icon: 'pi pi-mobile',
-        items: [
-          [
-            {
-              label: 'Computer',
-              items: [
-                { label: 'Monitor' },
-                { label: 'Mouse' },
-                { label: 'Notebook' },
-                { label: 'Keyboard' },
-                { label: 'Printer' },
-                { label: 'Storage' },
-              ],
-            },
-          ],
-          [
-            {
-              label: 'Home Theater',
-              items: [{ label: 'Projector' }, { label: 'Speakers' }, { label: 'TVs' }],
-            },
-          ],
-          [
-            {
-              label: 'Gaming',
-              items: [{ label: 'Accessories' }, { label: 'Console' }, { label: 'PC' }, { label: 'Video Games' }],
-            },
-          ],
-          [
-            {
-              label: 'Appliances',
-              items: [
-                { label: 'Coffee Machine' },
-                { label: 'Fridge' },
-                { label: 'Oven' },
-                { label: 'Vaccum Cleaner' },
-                { label: 'Washing Machine' },
-              ],
-            },
-          ],
-        ],
+        label: 'Resources',
+        root: true
       },
       {
-        label: 'Sports',
-        icon: 'pi pi-clock',
-        items: [
-          [
-            {
-              label: 'Football',
-              items: [{ label: 'Kits' }, { label: 'Shoes' }, { label: 'Shorts' }, { label: 'Training' }],
-            },
-          ],
-          [
-            {
-              label: 'Running',
-              items: [{ label: 'Accessories' }, { label: 'Shoes' }, { label: 'T-Shirts' }, { label: 'Shorts' }],
-            },
-          ],
-          [
-            {
-              label: 'Swimming',
-              items: [{ label: 'Kickboard' }, { label: 'Nose Clip' }, { label: 'Swimsuits' }, { label: 'Paddles' }],
-            },
-          ],
-          [
-            {
-              label: 'Tennis',
-              items: [{ label: 'Balls' }, { label: 'Rackets' }, { label: 'Shoes' }, { label: 'Training' }],
-            },
-          ],
-        ],
-      },
+        label: 'Contact',
+        root: true
+      }
     ];
   }
 
