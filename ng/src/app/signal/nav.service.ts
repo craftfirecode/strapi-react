@@ -20,6 +20,7 @@ const GET_NAV = gql`
         documentId
       }
       children {
+        category
         sub {
           url
           label

@@ -10,6 +10,7 @@ interface NavItem {
   };
   children?: Array<{
     __typename?: string;
+    category?: string;
     sub?: Array<{
       __typename?: string;
       url: string;
@@ -24,7 +25,7 @@ interface NavItem {
 
 export class MenuAdapter {
   /**
-   * Konvertiert Navigation-Daten in PrimeNG MegaMenu-Format
+   * Konvertiert Navigation-Daten in PrimeNG MegaMenu-Format mit Kategorien
    * @param navData Array von Navigation-Items aus Strapi
    * @returns Array von MegaMenuItem für PrimeNG
    */
@@ -38,26 +39,24 @@ export class MenuAdapter {
 
       // Prüfen ob Children/Sub-Items vorhanden sind
       if (navItem.children && navItem.children.length > 0) {
-        const subItems = navItem.children[0]?.sub;
-
-        if (subItems && subItems.length > 0) {
-          // Organisiere Sub-Items in Spalten (hier: 3 Items pro Spalte)
-          const itemsPerColumn = 3;
-          const columns: any[][] = [];
-
-          for (let i = 0; i < subItems.length; i += itemsPerColumn) {
-            const columnItems = subItems.slice(i, i + itemsPerColumn).map(subItem => ({
+        // Jede Kategorie wird zu einer Spalte
+        const columns: any[][] = navItem.children
+          .filter(child => child.sub && child.sub.length > 0)
+          .map(child => {
+            const columnItems = child.sub!.map(subItem => ({
               label: subItem.label,
               routerLink: subItem.url ? `/${subItem.url}` : undefined,
-              icon: 'pi pi-arrow-right', // Standard-Icon, kann angepasst werden
+              icon: 'pi pi-arrow-right',
               subtext: subItem.page?.documentId ? `Doc: ${subItem.page.documentId}` : undefined
             }));
 
-            columns.push([{
+            return [{
+              label: child.category, // Kategorie-Name als Überschrift
               items: columnItems
-            }]);
-          }
+            }];
+          });
 
+        if (columns.length > 0) {
           megaMenuItem.items = columns;
         }
       }
@@ -67,8 +66,8 @@ export class MenuAdapter {
   }
 
   /**
-   * Alternative Konvertierung mit flacher Struktur
-   * Alle Sub-Items werden in einer einzigen Spalte angezeigt
+   * Alternative Konvertierung mit flacher Struktur ohne Kategorie-Überschriften
+   * Alle Sub-Items werden in separaten Spalten nach Kategorie gruppiert
    */
   static toMegaMenuFlat(navData: NavItem[]): MegaMenuItem[] {
     return navData.map(navItem => {
@@ -79,11 +78,14 @@ export class MenuAdapter {
       };
 
       if (navItem.children && navItem.children.length > 0) {
-        const subItems = navItem.children[0]?.sub;
+        // Alle Sub-Items in einer Spalte ohne Kategorie-Trennung
+        const allSubItems = navItem.children
+          .filter(child => child.sub && child.sub.length > 0)
+          .flatMap(child => child.sub!);
 
-        if (subItems && subItems.length > 0) {
+        if (allSubItems.length > 0) {
           megaMenuItem.items = [[{
-            items: subItems.map(subItem => ({
+            items: allSubItems.map(subItem => ({
               label: subItem.label,
               routerLink: subItem.url ? `/${subItem.url}` : undefined,
               icon: 'pi pi-arrow-right',
@@ -96,4 +98,3 @@ export class MenuAdapter {
     });
   }
 }
-
