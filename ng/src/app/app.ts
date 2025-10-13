@@ -1,10 +1,11 @@
 import {Component, inject, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {FolderService} from './signal/folder.service';
+import { PageDisplayComponent } from './components/page-display.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, PageDisplayComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

@@ -1,4 +1,12 @@
 <p>app.html</p>
-<main>
-  <output></output>
-</main>
+<div class="app-container">
+  <header>
+    <h1>Strapi CMS mit Angular GraphQL</h1>
+    <button (click)="log()">Console Log der Zone-Daten</button>
+  </header>
+
+  <main>
+    <app-page-display></app-page-display>
+    <router-outlet></router-outlet>
+  </main>
+</div>
