@@ -117,7 +117,16 @@ async function fetchData(url: string, params?: any) {
 
 export async function getPageByHref(url: string | string[]) {
   const data = await getSettingsData();
-  if (!data || !data.top) return null;
+  if (!data) return null;
+
+  if (url === "datenschutz" && data.datenschutz) {
+    return { page: data.datenschutz };
+  }
+  if (url === "impressum" && data.impressum) {
+    return { page: data.impressum };
+  }
+
+  if (!data.top) return null;
   return findByCriteria(data.top, { url: url });
 }
 
