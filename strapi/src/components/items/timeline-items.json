@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_items_timeline_items",
+  "info": {
+    "displayName": "Timeline-items",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "from": {
+      "type": "date"
+    },
+    "to": {
+      "type": "date"
+    },
+    "today": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

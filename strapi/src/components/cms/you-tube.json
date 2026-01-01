@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_cms_you_tubes",
+  "info": {
+    "displayName": "YouTube"
+  },
+  "options": {},
+  "attributes": {
+    "videoID": {
+      "type": "string"
+    }
+  }
+}

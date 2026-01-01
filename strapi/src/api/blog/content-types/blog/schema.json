@@ -10,6 +10,7 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "url": {
       "type": "string"
@@ -23,7 +24,8 @@
         "cms.content",
         "cms.content-image",
         "cms.button",
-        "cms.accordion"
+        "cms.accordion",
+        "cms.you-tube"
       ]
     },
     "thumbnail": {
@@ -39,14 +41,14 @@
     },
     "settings": {
       "type": "component",
-      "repeatable": false,
       "component": "meta.meta",
+      "repeatable": false,
       "required": true
     },
     "tag": {
       "type": "component",
-      "repeatable": false,
-      "component": "items.post-tag"
+      "component": "items.post-tag",
+      "repeatable": false
     },
     "title": {
       "type": "string"

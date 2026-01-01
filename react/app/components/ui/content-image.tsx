@@ -4,10 +4,11 @@ import { Button } from "~/components/ui/button";
 import { Link } from "react-router";
 
 export const ContentImage = ({ data }: { data: any }) => {
+  const imageData = { ...data, image: data.contentImage };
   return (
     <div className={"grid gap-3 md:grid-cols-1 lg:grid-cols-2 items-center"}>
       <div>
-        <Image data={data} />
+        <Image data={imageData} />
       </div>
       <div
         className={data.revert ? "order-last" : "md:order-last lg:order-first"}

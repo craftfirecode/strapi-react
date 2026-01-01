@@ -31,12 +31,12 @@ export default function Portfolio_index({loaderData}: Route.ComponentProps) {
                                      className="w-full h-48 object-cover hover:grayscale" alt=""/>
                             </Link>
                             <div className="p-3">
-                                <h3 className="font-bold">{item.title}</h3>
+                                <h3 className="font-bold">{item.settings?.title}</h3>
                                 <div className="my-3">
-                                    <Badge>{item.tag.tag}</Badge>
+                                    <Badge>{item.tag?.tag}</Badge>
                                 </div>
                                 <div className="mb-8">
-                                    {item.description}
+                                    {item.settings?.description}
                                 </div>
                                 <Link to={"/blog/" + item.url}>
                                     <Button>Jetzt Lesen</Button>

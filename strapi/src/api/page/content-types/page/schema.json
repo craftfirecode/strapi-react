@@ -27,7 +27,8 @@
         "cms.post-list",
         "cms.content-image",
         "cms.accordion",
-        "cms.table"
+        "cms.table",
+        "cms.you-tube"
       ],
       "required": true
     },

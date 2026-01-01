@@ -11,8 +11,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
     const segments = url.pathname.split("/").filter(Boolean);
     const page = await getPageByHrefSubpage(segments);
     const res = await getPageDataByDocumentID(page.page.documentId);
-    console.log(res.data[0]);
-    return res.data[0];
+    return res;
   } catch (error) {
     return { data: null };
   }

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_items_meter_items",
+  "info": {
+    "displayName": "Meter-items"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "value": {
+      "type": "integer"
+    }
+  }
+}

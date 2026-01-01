@@ -5,14 +5,14 @@ import { Builder } from "~/components/ui/builder";
 export async function loader({ params }: Route.LoaderArgs) {
   try {
     const data = await getPageIndexData();
-    return data.data[0];
-    //console.log(data);
+    return data;
   } catch (error) {
     return { data: null };
   }
 }
 
 export function meta({ params, data }: Route.MetaArgs & { data: any }) {
+  if (!data?.settings) return [];
   return [
     { title: `CRAFTFIRE - ${data.settings.title}` },
     { description: data.settings.description },

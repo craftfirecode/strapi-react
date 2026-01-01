@@ -30,13 +30,7 @@ export interface CmsContent extends Struct.ComponentSchema {
     displayName: 'Content';
   };
   attributes: {
-    wysiwyg: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'default';
-        }
-      >;
+    wysiwyg: Schema.Attribute.Blocks;
   };
 }
 
@@ -51,14 +45,7 @@ export interface CmsContentImage extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Schema.Attribute.Required;
     revert: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    wysiwyg: Schema.Attribute.RichText &
-      Schema.Attribute.Required &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'default';
-        }
-      >;
+    wysiwyg: Schema.Attribute.Blocks;
   };
 }
 
@@ -109,6 +96,16 @@ export interface CmsTable extends Struct.ComponentSchema {
   };
 }
 
+export interface CmsYouTube extends Struct.ComponentSchema {
+  collectionName: 'components_cms_you_tubes';
+  info: {
+    displayName: 'YouTube';
+  };
+  attributes: {
+    videoID: Schema.Attribute.String;
+  };
+}
+
 export interface ItemsAccordionItems extends Struct.ComponentSchema {
   collectionName: 'components_items_accordion_items';
   info: {
@@ -116,14 +113,20 @@ export interface ItemsAccordionItems extends Struct.ComponentSchema {
     displayName: 'Accordion-items';
   };
   attributes: {
-    description: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<
-        'plugin::ckeditor5.CKEditor',
-        {
-          preset: 'default';
-        }
-      >;
+    description: Schema.Attribute.Blocks;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface ItemsMeterItems extends Struct.ComponentSchema {
+  collectionName: 'components_items_meter_items';
+  info: {
+    displayName: 'Meter-items';
+  };
+  attributes: {
+    color: Schema.Attribute.String;
+    label: Schema.Attribute.String;
+    value: Schema.Attribute.Integer;
   };
 }
 
@@ -200,6 +203,21 @@ export interface ItemsSubnavigation extends Struct.ComponentSchema {
   };
 }
 
+export interface ItemsTimelineItems extends Struct.ComponentSchema {
+  collectionName: 'components_items_timeline_items';
+  info: {
+    description: '';
+    displayName: 'Timeline-items';
+  };
+  attributes: {
+    description: Schema.Attribute.String;
+    from: Schema.Attribute.Date;
+    title: Schema.Attribute.String;
+    to: Schema.Attribute.Date;
+    today: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+  };
+}
+
 export interface MetaMeta extends Struct.ComponentSchema {
   collectionName: 'components_meta_metas';
   info: {
@@ -223,11 +241,14 @@ declare module '@strapi/strapi' {
       'cms.post-list': CmsPostList;
       'cms.space': CmsSpace;
       'cms.table': CmsTable;
+      'cms.you-tube': CmsYouTube;
       'items.accordion-items': ItemsAccordionItems;
+      'items.meter-items': ItemsMeterItems;
       'items.nav-items': ItemsNavItems;
       'items.nav-items-children': ItemsNavItemsChildren;
       'items.post-tag': ItemsPostTag;
       'items.subnavigation': ItemsSubnavigation;
+      'items.timeline-items': ItemsTimelineItems;
       'meta.meta': MetaMeta;
     }
   }

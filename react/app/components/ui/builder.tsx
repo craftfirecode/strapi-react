@@ -14,8 +14,28 @@ export const Builder = ({data}: any) => {
         return <div>404 – Seite nicht gefunden</div>;
     }
 
+    const getComponentType = (component: any) => {
+        if (component.__component) return component.__component;
+        if (component.__typename) {
+            switch (component.__typename) {
+                case "ComponentCmsImage": return "cms.image";
+                case "ComponentCmsContent": return "cms.content";
+                case "ComponentCmsButton": return "cms.button";
+                case "ComponentCmsSpace": return "cms.space";
+                case "ComponentCmsPostList": return "cms.post-list";
+                case "ComponentCmsContentImage": return "cms.content-image";
+                case "ComponentCmsAccordion": return "cms.accordion";
+                case "ComponentCmsTable": return "cms.table";
+                case "ComponentCmsYouTube": return "cms.you-tube";
+                default: return component.__typename;
+            }
+        }
+        return null;
+    };
+
     const renderComponent = (component: any) => {
-        switch (component.__component) {
+        const type = getComponentType(component);
+        switch (type) {
             case "cms.image":
                 return (
                     <section className="">
@@ -64,15 +84,29 @@ export const Builder = ({data}: any) => {
                 return (
                     <section className="">
                         <Accordion type="single" collapsible>
-                            {component.accordion?.map((item: any) => (
-                                <AccordionItem key={item.id} value={String(item.id)}>
+                            {component.accordion?.map((item: any, index: number) => (
+                                <AccordionItem key={index} value={`item-${index}`}>
                                     <AccordionTrigger>{item.title}</AccordionTrigger>
                                     <AccordionContent>
-                                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                                        <Content data={{wysiwyg: item.description}}/>
                                     </AccordionContent>
                                 </AccordionItem>
                             ))}
                         </Accordion>
+                    </section>
+                );
+            case "cms.you-tube":
+                return (
+                    <section className="">
+                        <iframe
+                            width="100%"
+                            height="500"
+                            src={`https://www.youtube.com/embed/${component.videoID}`}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
                     </section>
                 );
             default:

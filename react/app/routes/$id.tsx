@@ -7,7 +7,7 @@ export async function loader({params}: Route.LoaderArgs) {
     try {
         const page = await getPageByHref(params.id);
         const res = await getPageDataByDocumentID(page.page.documentId);
-        return res.data[0];
+        return res;
     } catch (error) {
         return {data: null};
     }
