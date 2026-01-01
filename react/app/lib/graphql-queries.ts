@@ -364,6 +364,7 @@ export const GET_NAVIGATION = gql`
     navigation {
       documentId
       top {
+        id
         label
         icon
         url
@@ -375,8 +376,10 @@ export const GET_NAVIGATION = gql`
           ...Image
         }
         children {
+          id
           category
           sub {
+            id
             label
             icon
             url

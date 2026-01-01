@@ -198,7 +198,7 @@ export const Navigation = ({ data }: { data: any }) => {
                           );
                           return (
                             <AccordionItem
-                              value={item.id}
+                              value={String(item.id)}
                               className={`${
                                 hasActiveChild
                                   ? "text-[#00c16a] py-2 px-3"
