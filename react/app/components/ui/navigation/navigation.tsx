@@ -215,19 +215,18 @@ export const Navigation = ({ data }: { data: any }) => {
                                 <div className="flex gap-3 flex-col pt-3">
                                   {item.children.map(
                                     (child: any, index: number) => (
-                                      <>
+                                      <React.Fragment key={index}>
                                         <div className="text-[#6d7682] text-[13px] font-semibold">
                                           {child.category}
                                         </div>
                                         {child.sub.map(
-                                          (sub: any, index: number) => (
-                                            <>
+                                          (sub: any, subIndex: number) => (
+                                            <React.Fragment key={subIndex}>
                                               {sub.invisible === false && (
                                                 <NavLink
                                                   role="link"
                                                   onClick={() => setOpen(false)}
                                                   caseSensitive
-                                                  key={index}
                                                   className={({ isActive }) =>
                                                     isActive
                                                       ? "text-[#00c16a]"
@@ -243,10 +242,10 @@ export const Navigation = ({ data }: { data: any }) => {
                                                   </div>
                                                 </NavLink>
                                               )}
-                                            </>
+                                            </React.Fragment>
                                           )
                                         )}
-                                      </>
+                                      </React.Fragment>
                                     )
                                   )}
                                 </div>
