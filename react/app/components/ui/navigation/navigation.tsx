@@ -4,11 +4,11 @@ import { Menu } from "@base-ui/react";
 import * as Icons from "lucide-react";
 import { MenuIcon } from "lucide-react";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "~/components/ui/accordion";
+  AccordionBase,
+  AccordionBaseContent,
+  AccordionBaseItem,
+  AccordionBaseTrigger,
+} from "~/components/ui/accordion-base";
 import {
   Sheet,
   SheetContent,
@@ -163,7 +163,7 @@ export const Navigation = ({ data }: { data: any }) => {
             <SheetHeader>
               <SheetDescription>CraftFire</SheetDescription>
             </SheetHeader>
-            <Accordion type="single" collapsible>
+            <AccordionBase multiple={false}>
               <div className="">
                 {data.map((item: any, index: number) => (
                   <div className="" key={item.id}>
@@ -198,7 +198,7 @@ export const Navigation = ({ data }: { data: any }) => {
                               )
                           );
                           return (
-                            <AccordionItem
+                            <AccordionBaseItem
                               value={String(item.id)}
                               className={`${
                                 hasActiveChild
@@ -206,13 +206,13 @@ export const Navigation = ({ data }: { data: any }) => {
                                   : "text-black  py-2 px-3 transition-colors duration-450"
                               }`}
                             >
-                              <AccordionTrigger className="p-0 m-0 small-menu">
+                              <AccordionBaseTrigger className="p-0 m-0 small-menu">
                                 <div className="flex items-center gap-1.5 text-[19px] font-normal">
                                   <DynamicIcon iconName={item.icon} />
                                   {item.label}
                                 </div>
-                              </AccordionTrigger>
-                              <AccordionContent className="pt-0 pb-0">
+                              </AccordionBaseTrigger>
+                              <AccordionBaseContent className="pt-0 pb-0">
                                 <div className="flex gap-3 flex-col pt-3">
                                   {item.children.map(
                                     (child: any, index: number) => (
@@ -250,8 +250,8 @@ export const Navigation = ({ data }: { data: any }) => {
                                     )
                                   )}
                                 </div>
-                              </AccordionContent>
-                            </AccordionItem>
+                              </AccordionBaseContent>
+                            </AccordionBaseItem>
                           );
                         })()}
                       </>
@@ -259,7 +259,7 @@ export const Navigation = ({ data }: { data: any }) => {
                   </div>
                 ))}
               </div>
-            </Accordion>
+            </AccordionBase>
             <SheetFooter></SheetFooter>
           </SheetContent>
         </Sheet>
