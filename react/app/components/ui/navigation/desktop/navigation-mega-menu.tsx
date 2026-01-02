@@ -1,5 +1,5 @@
 import * as Icons from "lucide-react";
-import { Menu } from "@base-ui-components/react";
+import { Menu } from "@base-ui/react";
 import { useCallback } from "react";
 import { NavLink, useNavigate } from "react-router";
 

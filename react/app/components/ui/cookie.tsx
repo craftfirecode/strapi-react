@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Button} from "~/components/ui/button";
-import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "~/components/ui/collapsible";
-import {Switch} from "~/components/ui/switch";
-import {Label} from "~/components/ui/label";
+import {CollapsibleBase, CollapsibleBaseContent, CollapsibleBaseTrigger} from "~/components/ui/collapsible-base";
+import {SwitchBase} from "~/components/ui/switch-base";
+import {FieldBase, LabelBase} from "~/components/ui/field-base";
 import {InfoIcon} from "lucide-react";
+import { ButtonBase } from './button-base';
+import styles from './cookie.module.css';
 
 interface Preferences {
     necessary: boolean;
@@ -89,66 +90,66 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
     }
 
     return (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-md rounded-xl shadow-2xl bg-white border border-gray-200 p-6 flex flex-col gap-4 animate-fade-in">
-            <div className="text-base font-semibold text-gray-900 flex items-center gap-2">
+        <div className={styles.Container}>
+            <div className={styles.Title}>
                 Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Passen Sie Ihre Einstellungen an:
             </div>
-            <div className="space-y-3">
-                <Collapsible>
-                    <div className="flex gap-3 items-center">
-                        <Switch disabled checked id="necessary-switch"/>
-                        <Label htmlFor="necessary-switch">Notwendig (immer aktiv)</Label>
-                        <CollapsibleTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleTrigger>
-                    </div>
-                    <CollapsibleContent>
-                        <span className="text-xs text-gray-500">Technisch notwendige Cookies für die Grundfunktionalität.</span>
-                    </CollapsibleContent>
-                </Collapsible>
-                <Collapsible>
-                    <div className="flex gap-3 items-center">
-                        <Switch
+            <div className={styles.List}>
+                <CollapsibleBase>
+                    <FieldBase className={styles.Field}>
+                        <SwitchBase disabled checked id="necessary-switch"/>
+                        <LabelBase>Notwendig (immer aktiv)</LabelBase>
+                        <CollapsibleBaseTrigger><InfoIcon className={styles.InfoIcon}/></CollapsibleBaseTrigger>
+                    </FieldBase>
+                    <CollapsibleBaseContent>
+                        <span className={styles.Description}>Technisch notwendige Cookies für die Grundfunktionalität.</span>
+                    </CollapsibleBaseContent>
+                </CollapsibleBase>
+                <CollapsibleBase>
+                    <FieldBase className={styles.Field}>
+                        <SwitchBase
                             disabled={true}
                             checked={preferences.analytics}
                             name="analytics"
                             onCheckedChange={(checked) => handleSwitchChange(checked, 'analytics')}
                             id="analytics-switch"
                         />
-                        <Label htmlFor="analytics-switch">Analytik</Label>
-                        <CollapsibleTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleTrigger>
-                    </div>
-                    <CollapsibleContent>
-                        <span className="text-xs text-gray-500">Statistische Auswertung zur Verbesserung der Website. (Derzeit nicht in Verwendung)</span>
-                    </CollapsibleContent>
-                </Collapsible>
-                <Collapsible>
-                    <div className="flex gap-3 items-center">
-                        <Switch
+                        <LabelBase>Analytik</LabelBase>
+                        <CollapsibleBaseTrigger><InfoIcon className={styles.InfoIcon}/></CollapsibleBaseTrigger>
+                    </FieldBase>
+                    <CollapsibleBaseContent>
+                        <span className={styles.Description}>Statistische Auswertung zur Verbesserung der Website. (Derzeit nicht in Verwendung)</span>
+                    </CollapsibleBaseContent>
+                </CollapsibleBase>
+                <CollapsibleBase>
+                    <FieldBase className={styles.Field}>
+                        <SwitchBase
                             disabled={true}
                             checked={preferences.marketing}
                             name="marketing"
                             onCheckedChange={(checked) => handleSwitchChange(checked, 'marketing')}
                             id="marketing-switch"
                         />
-                        <Label htmlFor="marketing-switch">Marketing</Label>
-                        <CollapsibleTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleTrigger>
-                    </div>
-                    <CollapsibleContent>
-                        <span className="text-xs text-gray-500">Marketing-Cookies für personalisierte Werbung. (Derzeit nicht in Verwendung)</span>
-                    </CollapsibleContent>
-                </Collapsible>
+                        <LabelBase>Marketing</LabelBase>
+                        <CollapsibleBaseTrigger><InfoIcon className={styles.InfoIcon}/></CollapsibleBaseTrigger>
+                    </FieldBase>
+                    <CollapsibleBaseContent>
+                        <span className={styles.Description}>Marketing-Cookies für personalisierte Werbung. (Derzeit nicht in Verwendung)</span>
+                    </CollapsibleBaseContent>
+                </CollapsibleBase>
             </div>
-            <div className="flex gap-2 justify-end">
-                <Button variant="primary" onClick={handleAccept}>Akzeptieren</Button>
-                <Button variant="ghost" onClick={handleDecline}>Ablehnen</Button>
-                <Button variant="ghost" onClick={handleClose}>Schließen</Button>
+            <div className={styles.Actions}>
+                <ButtonBase onClick={handleAccept}>Akzeptieren</ButtonBase>
+                <ButtonBase onClick={handleDecline}>Ablehnen</ButtonBase>
+                <ButtonBase onClick={handleClose}>Schließen</ButtonBase>
             </div>
-            <div className="mt-2 flex justify-between items-center text-xs">
+            <div className={styles.Footer}>
                 <div></div>
                 <a
                     href="/datenschutz"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline text-gray-500 hover:text-green-700"
+                    className={styles.Link}
                 >Datenschutzerklärung</a>
             </div>
         </div>
