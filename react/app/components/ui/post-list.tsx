@@ -4,7 +4,6 @@ import {getPostListData} from "~/api/strapi-api";
 import {useEffect, useState} from "react";
 import {Button} from "~/components/ui/button";
 import {Link} from "react-router";
-import {Badge} from "~/components/ui/badge";
 
 export const PostList = ({data}: { data: any }) => {
 
@@ -33,7 +32,7 @@ export const PostList = ({data}: { data: any }) => {
                             <div className="bg-black p-3">
                                 <h3 className="font-bold">{item.title}</h3>
                                 <div className="mb-3">
-                                    <Badge>{item.tag.tag}</Badge>
+                                   {item.tag.tag}
                                 </div>
                                 <div className="mb-8">
                                     {item.description}

@@ -1,7 +1,6 @@
 import type {Route} from "./+types/blog._index";
 import {Link} from "react-router";
 import {Button} from "~/components/ui/button";
-import {Badge} from "~/components/ui/badge";
 import {getBlogListData} from "~/api/strapi-api";
 
 export function meta({params}: Route.MetaArgs) {
@@ -35,7 +34,7 @@ export default function Portfolio_index({loaderData}: Route.ComponentProps) {
                             <div className="p-3">
                                 <h3 className="font-bold">{item.settings?.title}</h3>
                                 <div className="my-3">
-                                    <Badge>{item.tag?.tag}</Badge>
+                                    {item.tag?.tag}
                                 </div>
                                 <div className="mb-8">
                                     {item.settings?.description}
