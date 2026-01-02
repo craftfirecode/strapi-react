@@ -1,6 +1,6 @@
 import { Link, NavLink, useLocation } from "react-router";
 import React from "react";
-import { Menu } from "@base-ui-components/react";
+import { Menu } from "@base-ui/react";
 import * as Icons from "lucide-react";
 import { MenuIcon } from "lucide-react";
 import {
@@ -83,7 +83,7 @@ export const Navigation = ({ data }: { data: any }) => {
                     </div>
                   </NavLink>
                 ) : (
-                  <Menu.Root openOnHover>
+                  <Menu.Root>
                     {(() => {
                       const hasActiveChild = item.children.some((child: any) =>
                         child.sub.some((sub: any) =>
@@ -93,6 +93,7 @@ export const Navigation = ({ data }: { data: any }) => {
                       return (
                         <>
                           <Menu.Trigger
+                            openOnHover
                             role="link"
                             className={`flex h-10 items-center justify-center gap-1.5 rounded-md px-3.5 select-none focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:text-[#00c16a] ${
                               hasActiveChild

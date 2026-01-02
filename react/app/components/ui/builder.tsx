@@ -7,7 +7,7 @@ import {Space} from "~/components/ui/space";
 import {PostList} from "~/components/ui/post-list";
 import {ContentImage} from "~/components/ui/content-image";
 import {Table} from "~/components/ui/table";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "~/components/ui/accordion";
+import { AccordionBase, AccordionBaseContent, AccordionBaseItem, AccordionBaseTrigger } from "./accordion-base";
 
 export const Builder = ({data}: any) => {
     if (!data || !Array.isArray(data.zone)) {
@@ -83,16 +83,16 @@ export const Builder = ({data}: any) => {
             case "cms.accordion":
                 return (
                     <section className="">
-                        <Accordion type="single" collapsible>
+                        <AccordionBase multiple={false}>
                             {component.accordion?.map((item: any, index: number) => (
-                                <AccordionItem key={index} value={`item-${index}`}>
-                                    <AccordionTrigger>{item.title}</AccordionTrigger>
-                                    <AccordionContent>
+                                <AccordionBaseItem key={index} value={`item-${index}`}>
+                                    <AccordionBaseTrigger>{item.title}</AccordionBaseTrigger>
+                                    <AccordionBaseContent>
                                         <Content data={{wysiwyg: item.description}}/>
-                                    </AccordionContent>
-                                </AccordionItem>
+                                    </AccordionBaseContent>
+                                </AccordionBaseItem>
                             ))}
-                        </Accordion>
+                        </AccordionBase>
                     </section>
                 );
             case "cms.you-tube":
