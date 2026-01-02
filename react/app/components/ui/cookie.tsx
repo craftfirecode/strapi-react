@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Button} from "~/components/ui/button";
 import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "~/components/ui/collapsible";
 import {Switch} from "~/components/ui/switch";
 import {Label} from "~/components/ui/label";
 import {InfoIcon} from "lucide-react";
+import { ButtonBase } from './button-base';
 
 interface Preferences {
     necessary: boolean;
@@ -138,9 +138,9 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                 </Collapsible>
             </div>
             <div className="flex gap-2 justify-end">
-                <Button variant="primary" onClick={handleAccept}>Akzeptieren</Button>
-                <Button variant="ghost" onClick={handleDecline}>Ablehnen</Button>
-                <Button variant="ghost" onClick={handleClose}>Schließen</Button>
+                <ButtonBase onClick={handleAccept}>Akzeptieren</ButtonBase>
+                <ButtonBase onClick={handleDecline}>Ablehnen</ButtonBase>
+                <ButtonBase onClick={handleClose}>Schließen</ButtonBase>
             </div>
             <div className="mt-2 flex justify-between items-center text-xs">
                 <div></div>

@@ -1,7 +1,7 @@
 import type {Route} from "./+types/blog._index";
 import {Link} from "react-router";
-import {Button} from "~/components/ui/button";
 import {getBlogListData} from "~/api/strapi-api";
+import { ButtonBase } from "~/components/ui/button-base";
 
 export function meta({params}: Route.MetaArgs) {
     return [
@@ -40,7 +40,7 @@ export default function Portfolio_index({loaderData}: Route.ComponentProps) {
                                     {item.settings?.description}
                                 </div>
                                 <Link to={"/blog/" + item.url}>
-                                    <Button>Jetzt Lesen</Button>
+                                    <ButtonBase>Click me</ButtonBase>
                                 </Link>
                             </div>
                         </div>
@@ -48,6 +48,5 @@ export default function Portfolio_index({loaderData}: Route.ComponentProps) {
                 ))}
             </div>
         </div>
-
     );
 }

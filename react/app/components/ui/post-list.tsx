@@ -2,8 +2,8 @@
 
 import {getPostListData} from "~/api/strapi-api";
 import {useEffect, useState} from "react";
-import {Button} from "~/components/ui/button";
 import {Link} from "react-router";
+import { ButtonBase } from "./button-base";
 
 export const PostList = ({data}: { data: any }) => {
 
@@ -38,7 +38,7 @@ export const PostList = ({data}: { data: any }) => {
                                     {item.description}
                                 </div>
                                 <Link to={"/portfolio/" + item.url}>
-                                    <Button>Jetzt Lesen</Button>
+                                    <ButtonBase>Jetzt Lesen</ButtonBase>
                                 </Link>
                             </div>
                         </div>

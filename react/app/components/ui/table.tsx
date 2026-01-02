@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {Button} from "./button";
 import {Label} from "./label";
 import {
     Table as ShadcnTable,
@@ -11,6 +10,7 @@ import {
     TableCell,
     TableCaption,
 } from "./table-shadcn";
+import { ButtonBase } from "./button-base";
 
 interface TableProps {
     data: {
@@ -187,23 +187,19 @@ export const Table: React.FC<TableProps> = ({data}) => {
                     </select>
                 </div>
                 <div className="flex items-center gap-1 bg-muted/40 rounded-full px-2 py-1 shadow-sm">
-                    <Button
-                        variant="outline"
-                        size="icon"
+                    <ButtonBase
                         onClick={() => setPage((p) => Math.max(0, p - 1))}
                         disabled={page === 0}
                         aria-label="Vorherige Seite"
                         className="border-0 rounded-full h-6 w-6 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-muted/60 transition-colors p-0"
                     >
                         <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M13 15l-5-5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </Button>
+                    </ButtonBase>
                     <span
                         className="text-xs px-2 py-0.5 rounded bg-background text-foreground font-medium min-w-[60px] text-center">
             {page + 1} / {pageCount || 1}
           </span>
-                    <Button
-                        variant="outline"
-                        size="icon"
+                    <ButtonBase
                         onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
                         disabled={page >= pageCount - 1}
                         aria-label="Nächste Seite"
@@ -213,7 +209,7 @@ export const Table: React.FC<TableProps> = ({data}) => {
                             <path d="M7 5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                                   strokeLinejoin="round"/>
                         </svg>
-                    </Button>
+                    </ButtonBase>
                 </div>
             </div>
         </div>

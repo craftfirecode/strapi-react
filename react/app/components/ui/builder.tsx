@@ -1,13 +1,13 @@
 import React from "react";
 import {Image} from "~/components/ui/image";
 import {Content} from "~/components/ui/content";
-import {Button} from "~/components/ui/button";
 import {Link} from "react-router";
 import {Space} from "~/components/ui/space";
 import {PostList} from "~/components/ui/post-list";
 import {ContentImage} from "~/components/ui/content-image";
 import {Table} from "~/components/ui/table";
 import { AccordionBase, AccordionBaseContent, AccordionBaseItem, AccordionBaseTrigger } from "./accordion-base";
+import { ButtonBase } from "./button-base";
 
 export const Builder = ({data}: any) => {
     if (!data || !Array.isArray(data.zone)) {
@@ -52,7 +52,7 @@ export const Builder = ({data}: any) => {
                 return (
                     <section className="">
                         <Link target={component.blank ? "_blank" : undefined} to={component.to}>
-                            <Button>{component.value}</Button>
+                            <ButtonBase>{component.value}</ButtonBase>
                         </Link>
                     </section>
                 );

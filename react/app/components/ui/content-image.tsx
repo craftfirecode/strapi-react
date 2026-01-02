@@ -1,7 +1,7 @@
 import { Content } from "~/components/ui/content";
 import { Image } from "~/components/ui/image";
-import { Button } from "~/components/ui/button";
 import { Link } from "react-router";
+import { ButtonBase } from "./button-base";
 
 export const ContentImage = ({ data }: { data: any }) => {
   const imageData = { ...data, image: data.contentImage };
@@ -20,7 +20,7 @@ export const ContentImage = ({ data }: { data: any }) => {
               target={data.button.blank ? "_blank" : undefined}
               to={data.button.to}
             >
-              <Button>{data.button.value}</Button>
+              <ButtonBase>{data.button.value}</ButtonBase>
             </Link>
           </div>
         )}
