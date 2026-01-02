@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {CollapsibleBase, CollapsibleBaseContent, CollapsibleBaseTrigger} from "~/components/ui/collapsible-base";
 import {SwitchBase} from "~/components/ui/switch-base";
-import {Label} from "~/components/ui/label";
+import {FieldBase, LabelBase} from "~/components/ui/field-base";
 import {InfoIcon} from "lucide-react";
 import { ButtonBase } from './button-base';
 
@@ -95,17 +95,17 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
             </div>
             <div className="space-y-3">
                 <CollapsibleBase>
-                    <div className="flex gap-3 items-center">
+                    <FieldBase className="flex gap-3 items-center">
                         <SwitchBase disabled checked id="necessary-switch"/>
-                        <Label htmlFor="necessary-switch">Notwendig (immer aktiv)</Label>
+                        <LabelBase>Notwendig (immer aktiv)</LabelBase>
                         <CollapsibleBaseTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleBaseTrigger>
-                    </div>
+                    </FieldBase>
                     <CollapsibleBaseContent>
                         <span className="text-xs text-gray-500">Technisch notwendige Cookies für die Grundfunktionalität.</span>
                     </CollapsibleBaseContent>
                 </CollapsibleBase>
                 <CollapsibleBase>
-                    <div className="flex gap-3 items-center">
+                    <FieldBase className="flex gap-3 items-center">
                         <SwitchBase
                             disabled={true}
                             checked={preferences.analytics}
@@ -113,15 +113,15 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                             onCheckedChange={(checked) => handleSwitchChange(checked, 'analytics')}
                             id="analytics-switch"
                         />
-                        <Label htmlFor="analytics-switch">Analytik</Label>
+                        <LabelBase>Analytik</LabelBase>
                         <CollapsibleBaseTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleBaseTrigger>
-                    </div>
+                    </FieldBase>
                     <CollapsibleBaseContent>
                         <span className="text-xs text-gray-500">Statistische Auswertung zur Verbesserung der Website. (Derzeit nicht in Verwendung)</span>
                     </CollapsibleBaseContent>
                 </CollapsibleBase>
                 <CollapsibleBase>
-                    <div className="flex gap-3 items-center">
+                    <FieldBase className="flex gap-3 items-center">
                         <SwitchBase
                             disabled={true}
                             checked={preferences.marketing}
@@ -129,9 +129,9 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                             onCheckedChange={(checked) => handleSwitchChange(checked, 'marketing')}
                             id="marketing-switch"
                         />
-                        <Label htmlFor="marketing-switch">Marketing</Label>
+                        <LabelBase>Marketing</LabelBase>
                         <CollapsibleBaseTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleBaseTrigger>
-                    </div>
+                    </FieldBase>
                     <CollapsibleBaseContent>
                         <span className="text-xs text-gray-500">Marketing-Cookies für personalisierte Werbung. (Derzeit nicht in Verwendung)</span>
                     </CollapsibleBaseContent>

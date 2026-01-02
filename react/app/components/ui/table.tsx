@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Label} from "./label";
+import {LabelBase} from "./field-base";
 import {
     Table as ShadcnTable,
     TableHeader,
