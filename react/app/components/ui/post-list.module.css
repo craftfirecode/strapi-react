@@ -1,0 +1,53 @@
+.Headline {
+  margin-bottom: 1.25rem;
+}
+
+.Grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .Grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .Grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.Card {
+  /* border-fx styles if known, otherwise just a wrapper */
+  border: 1px solid var(--color-gray-200, #e5e7eb);
+}
+
+.CardInner {
+  background-color: #030712;
+}
+
+.Image {
+  width: 100%;
+  display: block;
+}
+
+.Content {
+  background-color: black;
+  padding: 0.75rem;
+  color: white; /* Assuming text is white on black bg */
+}
+
+.Title {
+  font-weight: 700;
+}
+
+.Tag {
+  margin-bottom: 0.75rem;
+}
+
+.Description {
+  margin-bottom: 2rem;
+}

@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import styles from "./table.module.css";
 import {LabelBase} from "./field-base";
 import {
     Table as ShadcnTable,
@@ -79,10 +80,10 @@ export const Table: React.FC<TableProps> = ({data}) => {
     };
 
     return (
-        <div className="w-full max-w-full mx-auto">
-            {data.title && <h3 className="text-xl font-semibold mb-4">{data.title}</h3>}
-            <div className="flex items-center gap-2 mb-4">
-                <div className="relative w-full max-w-xs">
+        <div className={styles.Container}>
+            {data.title && <h3 className={styles.Title}>{data.title}</h3>}
+            <div className={styles.Controls}>
+                <div className={styles.SearchWrapper}>
                     <input
                         type="text"
                         placeholder="Suche..."
@@ -91,9 +92,9 @@ export const Table: React.FC<TableProps> = ({data}) => {
                             setSearch(e.target.value);
                             setPage(0);
                         }}
-                        className="w-full h-10 rounded-full border border-gray-200 bg-background px-3 py-2 pr-10 text-sm shadow"
+                        className={styles.SearchInput}
                     />
-                    <span className="absolute right-3 top-2.5 text-gray-400 pointer-events-none">
+                    <span className={styles.SearchIcon}>
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
      className="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
@@ -101,20 +102,20 @@ export const Table: React.FC<TableProps> = ({data}) => {
                 </div>
 
             </div>
-            <div className="rounded-lg shadow-lg bg-white text-card-foreground overflow-x-auto">
-                <ShadcnTable className="min-w-full border-separate border-spacing-0">
+            <div className={styles.TableWrapper}>
+                <ShadcnTable className={styles.ShadcnTable}>
                     <TableHeader>
-                        <TableRow className="bg-muted/40">
+                        <TableRow className={styles.TableRowHeader}>
                             {headers.map((header, idx) => (
                                 <TableHead
                                     key={idx}
                                     onClick={() => handleSort(idx)}
-                                    className="select-none cursor-pointer group whitespace-nowrap px-4 py-3 text-left text-xs font-semibold text-muted-foreground tracking-wider uppercase bg-muted/40 hover:bg-muted/60 transition-colors"
+                                    className={styles.TableHead}
                                 >
                                     <div className="flex items-center gap-1">
                                         {header}
                                         {sortIdx === idx && (
-                                            <span className="ml-1">
+                                            <span className={styles.SortIcon}>
                         {sortAsc ? (
                             <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
                                 <path d="M10 6l4 5H6l4-5z" fill="currentColor"/>
@@ -127,7 +128,7 @@ export const Table: React.FC<TableProps> = ({data}) => {
                       </span>
                                         )}
                                         {sortIdx === idx || (
-                                            <span className="opacity-0 group-hover:opacity-60 ml-1">
+                                            <span className={styles.SortIconPlaceholder}>
                         <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 6l4 5H6l4-5z"
                                                                                           fill="currentColor"/></svg>
                       </span>
@@ -141,17 +142,17 @@ export const Table: React.FC<TableProps> = ({data}) => {
                         {pagedRows.map((row, rIdx) => (
                             <TableRow
                                 key={rIdx}
-                                className={`transition-colors even:bg-white odd:bg-gray-50 hover:bg-blue-50`}
+                                className={styles.TableRowBody}
                             >
                                 {row.map((cell, cIdx) => (
                                     <TableCell key={cIdx}
-                                               className="whitespace-nowrap px-4 py-2 text-sm text-foreground">
+                                               className={styles.TableCellBody}>
                                         {search ? (
                                             <span
                                                 dangerouslySetInnerHTML={{
                                                     __html: cell.replace(
                                                         new RegExp(`(${search})`, "gi"),
-                                                        '<mark class="bg-yellow-200 text-black">$1</mark>'
+                                                        `<mark class="${styles.Mark}">$1</mark>`
                                                     ),
                                                 }}
                                             />
@@ -165,10 +166,10 @@ export const Table: React.FC<TableProps> = ({data}) => {
                     </TableBody>
                 </ShadcnTable>
                 {sortedRows.length === 0 && (
-                    <div className="text-center text-muted-foreground py-8">Keine Daten gefunden.</div>
+                    <div className={styles.NoData}>Keine Daten gefunden.</div>
                 )}
             </div>
-            <div className="flex flex-col md:flex-row justify-between items-center gap-3 mt-4">
+            <div className={styles.Pagination}>
                 <div className="flex items-center gap-1">
                     <select
                         id="table-page-size"
@@ -177,7 +178,7 @@ export const Table: React.FC<TableProps> = ({data}) => {
                             setPageSize(Number(e.target.value));
                             setPage(0);
                         }}
-                        className="h-8  rounded px-2 py-1 text-xs bg-background shadow transition-colors min-w-[48px]"
+                        className={styles.PageSizeSelect}
                     >
                         {pageSizes.map((size) => (
                             <option key={size} value={size}>
@@ -186,24 +187,24 @@ export const Table: React.FC<TableProps> = ({data}) => {
                         ))}
                     </select>
                 </div>
-                <div className="flex items-center gap-1 bg-muted/40 rounded-full px-2 py-1 shadow-sm">
+                <div className={styles.PaginationControls}>
                     <ButtonBase
                         onClick={() => setPage((p) => Math.max(0, p - 1))}
                         disabled={page === 0}
                         aria-label="Vorherige Seite"
-                        className="border-0 rounded-full h-6 w-6 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-muted/60 transition-colors p-0"
+                        className={styles.PaginationButton}
                     >
                         <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M13 15l-5-5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </ButtonBase>
                     <span
-                        className="text-xs px-2 py-0.5 rounded bg-background text-foreground font-medium min-w-[60px] text-center">
+                        className={styles.PageInfo}>
             {page + 1} / {pageCount || 1}
           </span>
                     <ButtonBase
                         onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
                         disabled={page >= pageCount - 1}
                         aria-label="Nächste Seite"
-                        className="border-0 rounded-full h-6 w-6 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-muted/60 transition-colors p-0"
+                        className={styles.PaginationButton}
                     >
                         <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
                             <path d="M7 5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"

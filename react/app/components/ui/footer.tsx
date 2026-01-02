@@ -1,28 +1,27 @@
 import { NavLink } from "react-router";
 import { cn } from "~/lib/utils";
+import styles from "./footer.module.css";
 
 export const Footer = () => {
   return (
-    <div className="container mx-auto py-5">
-      <div className="flex gap-2 justify-center">
+    <div className={styles.Container}>
+      <div className={styles.Links}>
         <NavLink
           to="/datenschutz"
           className={({ isActive }) =>
-            cn("", {
-              "text-[#00c16a]": isActive,
-              "hover:text-[#00c16a]": !isActive,
+            cn(styles.Link, {
+              [styles.LinkActive]: isActive,
             })
           }
         >
           Datenschutz
         </NavLink>
-        <div className="text-balck">&</div>
+        <div className={styles.Separator}>&</div>
         <NavLink
           to="/impressum"
           className={({ isActive }) =>
-            cn("", {
-              "text-[#00c16a]": isActive,
-              "hover:text-[#00c16a]": !isActive,
+            cn(styles.Link, {
+              [styles.LinkActive]: isActive,
             })
           }
         >

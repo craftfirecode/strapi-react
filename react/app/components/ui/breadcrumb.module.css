@@ -1,0 +1,74 @@
+.List {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem; /* gap-1.5 */
+  font-size: 0.875rem; /* text-sm */
+  word-break: break-word; /* break-words */
+  color: var(--color-gray-500, #6b7280); /* text-muted-foreground */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .List {
+    gap: 0.625rem; /* sm:gap-2.5 */
+  }
+}
+
+.Item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem; /* gap-1.5 */
+}
+
+.Link {
+  transition: color 0.2s;
+  color: inherit;
+  text-decoration: none;
+}
+
+.Link:hover {
+  color: var(--color-gray-900, #111827); /* hover:text-foreground */
+}
+
+.Page {
+  font-weight: 400; /* font-normal */
+  color: var(--color-gray-900, #111827); /* text-foreground */
+}
+
+.Separator {
+  display: flex;
+  align-items: center;
+}
+
+.Separator > svg {
+  width: 0.875rem; /* size-3.5 */
+  height: 0.875rem;
+}
+
+.Ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem; /* size-9 */
+  height: 2.25rem;
+}
+
+.EllipsisIcon {
+  width: 1rem; /* size-4 */
+  height: 1rem;
+}
+
+.SrOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -4,6 +4,7 @@ import {SwitchBase} from "~/components/ui/switch-base";
 import {FieldBase, LabelBase} from "~/components/ui/field-base";
 import {InfoIcon} from "lucide-react";
 import { ButtonBase } from './button-base';
+import styles from './cookie.module.css';
 
 interface Preferences {
     necessary: boolean;
@@ -89,23 +90,23 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
     }
 
     return (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-md rounded-xl shadow-2xl bg-white border border-gray-200 p-6 flex flex-col gap-4 animate-fade-in">
-            <div className="text-base font-semibold text-gray-900 flex items-center gap-2">
+        <div className={styles.Container}>
+            <div className={styles.Title}>
                 Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Passen Sie Ihre Einstellungen an:
             </div>
-            <div className="space-y-3">
+            <div className={styles.List}>
                 <CollapsibleBase>
-                    <FieldBase className="flex gap-3 items-center">
+                    <FieldBase className={styles.Field}>
                         <SwitchBase disabled checked id="necessary-switch"/>
                         <LabelBase>Notwendig (immer aktiv)</LabelBase>
-                        <CollapsibleBaseTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleBaseTrigger>
+                        <CollapsibleBaseTrigger><InfoIcon className={styles.InfoIcon}/></CollapsibleBaseTrigger>
                     </FieldBase>
                     <CollapsibleBaseContent>
-                        <span className="text-xs text-gray-500">Technisch notwendige Cookies für die Grundfunktionalität.</span>
+                        <span className={styles.Description}>Technisch notwendige Cookies für die Grundfunktionalität.</span>
                     </CollapsibleBaseContent>
                 </CollapsibleBase>
                 <CollapsibleBase>
-                    <FieldBase className="flex gap-3 items-center">
+                    <FieldBase className={styles.Field}>
                         <SwitchBase
                             disabled={true}
                             checked={preferences.analytics}
@@ -114,14 +115,14 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                             id="analytics-switch"
                         />
                         <LabelBase>Analytik</LabelBase>
-                        <CollapsibleBaseTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleBaseTrigger>
+                        <CollapsibleBaseTrigger><InfoIcon className={styles.InfoIcon}/></CollapsibleBaseTrigger>
                     </FieldBase>
                     <CollapsibleBaseContent>
-                        <span className="text-xs text-gray-500">Statistische Auswertung zur Verbesserung der Website. (Derzeit nicht in Verwendung)</span>
+                        <span className={styles.Description}>Statistische Auswertung zur Verbesserung der Website. (Derzeit nicht in Verwendung)</span>
                     </CollapsibleBaseContent>
                 </CollapsibleBase>
                 <CollapsibleBase>
-                    <FieldBase className="flex gap-3 items-center">
+                    <FieldBase className={styles.Field}>
                         <SwitchBase
                             disabled={true}
                             checked={preferences.marketing}
@@ -130,25 +131,25 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                             id="marketing-switch"
                         />
                         <LabelBase>Marketing</LabelBase>
-                        <CollapsibleBaseTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleBaseTrigger>
+                        <CollapsibleBaseTrigger><InfoIcon className={styles.InfoIcon}/></CollapsibleBaseTrigger>
                     </FieldBase>
                     <CollapsibleBaseContent>
-                        <span className="text-xs text-gray-500">Marketing-Cookies für personalisierte Werbung. (Derzeit nicht in Verwendung)</span>
+                        <span className={styles.Description}>Marketing-Cookies für personalisierte Werbung. (Derzeit nicht in Verwendung)</span>
                     </CollapsibleBaseContent>
                 </CollapsibleBase>
             </div>
-            <div className="flex gap-2 justify-end">
+            <div className={styles.Actions}>
                 <ButtonBase onClick={handleAccept}>Akzeptieren</ButtonBase>
                 <ButtonBase onClick={handleDecline}>Ablehnen</ButtonBase>
                 <ButtonBase onClick={handleClose}>Schließen</ButtonBase>
             </div>
-            <div className="mt-2 flex justify-between items-center text-xs">
+            <div className={styles.Footer}>
                 <div></div>
                 <a
                     href="/datenschutz"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline text-gray-500 hover:text-green-700"
+                    className={styles.Link}
                 >Datenschutzerklärung</a>
             </div>
         </div>
