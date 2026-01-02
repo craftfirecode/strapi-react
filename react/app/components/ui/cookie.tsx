@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "~/components/ui/collapsible";
-import {Switch} from "~/components/ui/switch";
+import {CollapsibleBase, CollapsibleBaseContent, CollapsibleBaseTrigger} from "~/components/ui/collapsible-base";
+import {SwitchBase} from "~/components/ui/switch-base";
 import {Label} from "~/components/ui/label";
 import {InfoIcon} from "lucide-react";
 import { ButtonBase } from './button-base';
@@ -94,19 +94,19 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                 Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Passen Sie Ihre Einstellungen an:
             </div>
             <div className="space-y-3">
-                <Collapsible>
+                <CollapsibleBase>
                     <div className="flex gap-3 items-center">
-                        <Switch disabled checked id="necessary-switch"/>
+                        <SwitchBase disabled checked id="necessary-switch"/>
                         <Label htmlFor="necessary-switch">Notwendig (immer aktiv)</Label>
-                        <CollapsibleTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleTrigger>
+                        <CollapsibleBaseTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleBaseTrigger>
                     </div>
-                    <CollapsibleContent>
+                    <CollapsibleBaseContent>
                         <span className="text-xs text-gray-500">Technisch notwendige Cookies für die Grundfunktionalität.</span>
-                    </CollapsibleContent>
-                </Collapsible>
-                <Collapsible>
+                    </CollapsibleBaseContent>
+                </CollapsibleBase>
+                <CollapsibleBase>
                     <div className="flex gap-3 items-center">
-                        <Switch
+                        <SwitchBase
                             disabled={true}
                             checked={preferences.analytics}
                             name="analytics"
@@ -114,15 +114,15 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                             id="analytics-switch"
                         />
                         <Label htmlFor="analytics-switch">Analytik</Label>
-                        <CollapsibleTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleTrigger>
+                        <CollapsibleBaseTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleBaseTrigger>
                     </div>
-                    <CollapsibleContent>
+                    <CollapsibleBaseContent>
                         <span className="text-xs text-gray-500">Statistische Auswertung zur Verbesserung der Website. (Derzeit nicht in Verwendung)</span>
-                    </CollapsibleContent>
-                </Collapsible>
-                <Collapsible>
+                    </CollapsibleBaseContent>
+                </CollapsibleBase>
+                <CollapsibleBase>
                     <div className="flex gap-3 items-center">
-                        <Switch
+                        <SwitchBase
                             disabled={true}
                             checked={preferences.marketing}
                             name="marketing"
@@ -130,12 +130,12 @@ const CookieBanner: React.FC<CookieBannerProps> = ({onAccept, open, onClose}) =>
                             id="marketing-switch"
                         />
                         <Label htmlFor="marketing-switch">Marketing</Label>
-                        <CollapsibleTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleTrigger>
+                        <CollapsibleBaseTrigger><InfoIcon className="w-4 h-4 text-gray-400 hover:text-green-600"/></CollapsibleBaseTrigger>
                     </div>
-                    <CollapsibleContent>
+                    <CollapsibleBaseContent>
                         <span className="text-xs text-gray-500">Marketing-Cookies für personalisierte Werbung. (Derzeit nicht in Verwendung)</span>
-                    </CollapsibleContent>
-                </Collapsible>
+                    </CollapsibleBaseContent>
+                </CollapsibleBase>
             </div>
             <div className="flex gap-2 justify-end">
                 <ButtonBase onClick={handleAccept}>Akzeptieren</ButtonBase>
